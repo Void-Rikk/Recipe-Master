@@ -12,7 +12,9 @@ const inputVariants = cva(
                 primary: "bg-teal-600"
             },
             size: {
-                default: ""
+                default: "h-6 w-16",
+                medium: "h-10 w-20",
+                large: "h-14 w-24"
             }
         },
         defaultVariants: {
