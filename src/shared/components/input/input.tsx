@@ -12,9 +12,9 @@ const inputVariants = cva(
                 primary: "bg-teal-600"
             },
             size: {
-                default: "h-6 w-16",
-                medium: "h-10 w-20",
-                large: "h-14 w-24"
+                default: "h-6 w-30",
+                medium: "h-10 w-50",
+                large: "h-14 w-70"
             }
         },
         defaultVariants: {
@@ -24,7 +24,7 @@ const inputVariants = cva(
     }
 );
 
-function Input( { className, variant, size, ...props }: ComponentProps<"input"> & VariantProps<typeof inputVariants> ) {
+function Input( { className, variant, size, ...props }: Omit<ComponentProps<"input">, "size"> & VariantProps<typeof inputVariants> ) {
 
     return (
         <input { ...props } className={ twMerge(inputVariants({ variant, size, className })) }/>
