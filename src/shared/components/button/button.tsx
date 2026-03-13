@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 
 const buttonVariants = cva(
-    'py-2 px-4 text-white rounded-lg',
+    'py-2 px-4 text-white rounded-lg outline-none hover:bg-gray-700',
     {
         variants: {
 
@@ -14,9 +14,9 @@ const buttonVariants = cva(
                 primary: 'bg-teal-600'
             },
             size: {
-                default: "h-12 w-22",
-                medium: "h-14 w-24",
-                large: 'h-18 w-28'
+                default: "min-h-12 min-w-22",
+                medium: "min-h-14 min-w-24",
+                large: 'min-h-18 min-w-28'
             }
         },
         defaultVariants: {
