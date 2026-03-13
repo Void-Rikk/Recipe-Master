@@ -14,7 +14,7 @@ const buttonVariants = cva(
                 primary: 'bg-teal-600'
             },
             size: {
-                default: "min-h-12 min-w-22",
+                default: "min-h-10 min-w-20",
                 medium: "min-h-14 min-w-24",
                 large: 'min-h-18 min-w-28'
             }

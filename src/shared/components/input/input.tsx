@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const inputVariants = cva(
-    "py-2 px-4 text-white rounded-lg",
+    "py-2 px-4 text-white rounded-lg outline-blue-200",
     {
         variants: {
             variant: {
@@ -12,9 +12,9 @@ const inputVariants = cva(
                 primary: "bg-teal-600"
             },
             size: {
-                default: "h-6 w-30",
-                medium: "h-10 w-50",
-                large: "h-14 w-70"
+                default: "min-h-6 min-w-30",
+                medium: "min-h-10 min-w-50",
+                large: "min-h-14 min-w-70"
             }
         },
         defaultVariants: {
