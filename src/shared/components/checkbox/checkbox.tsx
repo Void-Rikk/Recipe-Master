@@ -11,7 +11,7 @@ const checkboxVariants = cva(
             variant: {
                 default: "bg-white",
                 destructive: "bg-red-600",
-                dark: "bg-gray-600"
+                dark: "bg-gray-900"
             },
             size: {
                 default: "h-7 w-7",
@@ -20,7 +20,7 @@ const checkboxVariants = cva(
             }
         },
         defaultVariants: {
-            variant: "default",
+            variant: "dark",
             size: "default"
         }
     }
@@ -29,7 +29,7 @@ const checkboxVariants = cva(
 function defineIndicatorStyles(variant: string | null | undefined, size: string | null | undefined) {
     let styles = "";
 
-    if (variant === "default" || !variant) {
+    if (variant === "default") {
         styles += "text-black";
     }
     else {

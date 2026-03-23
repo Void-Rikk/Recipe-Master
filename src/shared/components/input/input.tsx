@@ -7,9 +7,9 @@ const inputVariants = cva(
     {
         variants: {
             variant: {
-                default: "bg-gray-600",
+                default: "bg-gray-900",
                 destructive: "bg-red-600",
-                primary: "bg-teal-600"
+                secondary: "bg-gray-500"
             },
             size: {
                 default: "min-h-6 min-w-30",
