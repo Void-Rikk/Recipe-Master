@@ -1,7 +1,7 @@
 import Label from "../../../../shared/components/label/label.tsx";
 import Input from "../../../../shared/components/input/input.tsx";
 import Button from "../../../../shared/components/button/button.tsx";
-import { useState } from "react";
+import { type SubmitEventHandler, useState } from "react";
 import AuthService from "../../services/auth-service/auth-service.ts";
 
 
@@ -10,7 +10,7 @@ function RegisterForm() {
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit: SubmitEventHandler = (e) => {
         e.preventDefault();
         AuthService.register(nickname, password, confirmPassword);
     }
