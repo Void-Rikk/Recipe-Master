@@ -1,11 +1,37 @@
 import { Header } from "../../modules/home-page-header";
+import { SideFilter } from "../../modules/side-filter";
+import { RecipeCard } from "../../modules/recipe-card";
+
+const testCard = [
+    {id: "1", name: "Spaghetti", author: {id: "1", firstname: "John", lastname: "Johnson"}, likes: 12, isLiked: false},
+    {id: "2", name: "Burger", author: {id: "2", firstname: "Ken", lastname: "Clash"}, likes: 2, isLiked: true},
+    {id: "3", name: "Pickles", author: {id: "3", firstname: "Alex", lastname: "Melikh"}, likes: 10, isLiked: false},
+    {id: "4", name: "Pizza", author: {id: "4", firstname: "Danil", lastname: "Bratsev"}, likes: 5, isLiked: true},
+    {id: "5", name: "Pasta", author: {id: "5", firstname: "Bruh", lastname: "Bruhov"}, likes: 0, isLiked: false},
+    {id: "6", name: "Cake", author: {id: "6", firstname: "Lian", lastname: "Li"}, likes: 34, isLiked: true}
+];
 
 
 function HomePage() {
 
     return (
-        <div className="w-full mt-10">
+        <div className="flex flex-col gap-10 mt-6">
             <Header />
+            <section className="flex gap-20">
+                <SideFilter />
+                <main className="flex flex-wrap gap-2">
+                    {testCard.map(card => (
+                        <RecipeCard
+                            key={ card.id }
+                            recipeID={ card.id }
+                            recipeName={ card.name }
+                            author={ card.author }
+                            likes={ card.likes }
+                            isLiked={ card.isLiked }
+                        />
+                    ))}
+                </main>
+            </section>
         </div>
     );
 }
