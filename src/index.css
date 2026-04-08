@@ -14,7 +14,7 @@ body {
 #root {
     display: flex;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 h1,
@@ -29,7 +29,7 @@ ol,
 li,
 blockquote {
     margin: 0;
-    padding: 0;
+    /*padding: 0;*/
 }
 
 a {

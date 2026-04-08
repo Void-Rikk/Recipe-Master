@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 
 const buttonVariants = cva(
-    'py-2 px-4 text-white rounded-lg outline-none hover:bg-gray-700',
+    'py-2 px-4 text-white rounded-lg outline-none',
     {
         variants: {
 
