@@ -16,8 +16,10 @@ function RecipeCard({ recipeID, recipeName, author, likes, isLiked }: CardProps)
 
     return (
         <div
-            className="grid grid-cols-1 grid-rows-[60%_1fr_10%] gap-2 items-center justify-center
-            p-6 shadow-md shadow-gray-300 w-80 h-70 rounded-lg border border-gray-300"
+            className="grid grid-cols-1 grid-rows-[60%_1fr_10%] gap-2 items-center justify-center p-6
+            shadow-md shadow-gray-300
+            hover:shadow-lg hover:border-gray-400 transition-all
+            w-80 h-70 rounded-lg border border-gray-300"
         >
             <img src={ Pic } alt={ recipeName + " picture" } className="w-[100%] h-[100%] rounded-md" />
             <div className="flex flex-col gap-1 self-start">

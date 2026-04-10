@@ -19,7 +19,7 @@ function HomePage() {
             <Header />
             <section className="flex gap-20">
                 <SideFilter />
-                <main className="flex flex-wrap gap-2">
+                <main className="flex flex-wrap gap-4">
                     {testCard.map(card => (
                         <RecipeCard
                             key={ card.id }
