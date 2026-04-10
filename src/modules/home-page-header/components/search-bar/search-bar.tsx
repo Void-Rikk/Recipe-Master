@@ -19,15 +19,16 @@ function SearchBar() {
         >
             <Input
                 type="text"
-                className="h-10 w-[60%] rounded-2xl text-lg shadow-sm shadow-gray-900
-                focus:translate-y-[-2px] transition-all focus:shadow-lg outline-none"
+                className="h-10 w-[60%] rounded-2xl text-lg shadow-sm shadow-gray-600
+                focus:translate-y-[-1px] focus:shadow-md outline-none transition-all "
                 placeholder="Search for some recipe"
                 value={ searchQuery }
                 onChange={ (e) => setSearchQuery(e.target.value) }
             />
             <Button
-                className="flex justify-center items-center p-2 min-w-8 min-h-8 rounded-full hover:translate-y-[-1px]
-                hover:bg-gray-900 hover:shadow-md hover:cursor-pointer shadow-sm shadow-gray-900 transition-all"
+                className="flex justify-center items-center p-2 min-w-8 min-h-8 rounded-full
+                hover:translate-y-[-1px] hover:bg-gray-900 hover:shadow-md hover:cursor-pointer
+                 shadow-sm shadow-gray-900 transition-all"
             >
                 <Search />
             </Button>
