@@ -22,7 +22,9 @@ function Filter() {
                 <RadioItem value={"Mains"} id={'mains'} />
             </RadioGroup>
             <Button
-                className="w-20 transition-all hover:translate-y-[-1px] hover:bg-gray-900 hover:cursor-pointer"
+                className="w-20 transition-all
+                shadow shadow-gray-600
+                hover:translate-y-[-1px] hover:cursor-pointer hover:shadow-md"
                 onClick={ () => setFilterValue("default")}
             >
                 Reset
