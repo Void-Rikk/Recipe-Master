@@ -21,8 +21,9 @@ function LoginForm() {
         >
             <fieldset className="flex flex-col gap-2">
                 <Label className="flex flex-col">
-                    Nickname
+                    <span className="pl-2">Nickname</span>
                     <Input
+                        className="shadow shadow-gray-600"
                         type="text"
                         placeholder="Enter your nickame"
                         value={ nickname }
@@ -31,8 +32,9 @@ function LoginForm() {
                     />
                 </Label>
                 <Label className="flex flex-col">
-                    Password
+                    <span className="pl-2">Password</span>
                     <Input
+                        className="shadow shadow-gray-600"
                         type="password"
                         placeholder="Enter your password"
                         value={ password }
@@ -42,7 +44,12 @@ function LoginForm() {
                 </Label>
             </fieldset>
 
-            <Button type="submit" className="transition-all">
+            <Button
+                type="submit"
+                className="transition-all cursor-pointer
+                shadow shadow-gray-600
+                hover:translate-y-[-1px] hover:shadow-md"
+            >
                 Login
             </Button>
         </form>
