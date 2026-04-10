@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import HomePage from "./pages/home-page/home-page.tsx";
 import AuthPage from "./pages/auth-page/auth-page.tsx";
 import RecipePage from "./pages/recipe-page/recipe-page.tsx";
+import CreateRecipePage from "./pages/create-recipe-page/create-recipe-page.tsx";
 
 
 export const router = createBrowserRouter([
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/create",
-        element: null
+        element: <CreateRecipePage />
     },
     {
         path: "/recipe/:recipeId",
