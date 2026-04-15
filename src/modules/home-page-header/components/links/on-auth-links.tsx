@@ -17,9 +17,10 @@ function OnAuthLinks({ username, userID }: OnAuthLinksProps) {
                 border border-transparent rounded-full p-2
                 shadow shadow-transparent
                 hover:border-gray-400 hover:shadow-gray-200 transition-all"
+                aria-label="Create recipe link"
             >
-                <SquarePlus />
-                Create Recipe
+                <SquarePlus className="max-md:w-10 max-md:h-10" />
+                <span className="max-md:hidden">Create Recipe</span>
             </Link>
             <Link
                 to={ `/user/${userID}` }
@@ -27,9 +28,10 @@ function OnAuthLinks({ username, userID }: OnAuthLinksProps) {
                 border border-transparent rounded-full p-2
                 shadow shadow-transparent
                 hover:border-gray-400 hover:shadow-gray-200 transition-all"
+                aria-label="User profile link"
             >
-                { username }
-                <CircleUserRound />
+                <CircleUserRound className="max-md:w-10 max-md:h-10" />
+                <span className="max-md:hidden">{ username }</span>
             </Link>
         </>
     );

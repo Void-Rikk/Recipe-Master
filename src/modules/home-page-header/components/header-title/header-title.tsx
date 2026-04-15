@@ -5,10 +5,13 @@ function HeaderTitle() {
 
     return (
         <h1
-            className="flex gap-2 items-center text-3xl justify-self-end"
+            className="flex gap-2 items-center text-3xl max-md:text-2xl"
         >
-            <ChefHat className="w-8 h-8" />
-            Recipe Master
+            <ChefHat
+                className="w-8 h-8
+                max-md:w-12 max-md:h-12"
+            />
+            <a id="start">Recipe Master</a>
         </h1>
     );
 }

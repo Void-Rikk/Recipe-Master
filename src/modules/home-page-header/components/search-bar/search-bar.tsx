@@ -14,14 +14,15 @@ function SearchBar() {
 
     return (
         <form
-            className="flex items-center justify-center gap-4 w-[80%]"
+            className="flex items-center gap-6 w-[50%]
+            max-md:w-[100%]"
             onSubmit={ (e) => handleSearch(e) }
         >
             <Input
                 type="text"
-                className="h-10 w-[60%] rounded-2xl text-lg shadow-sm shadow-gray-600
+                className="h-10 w-[60%] grow-1 rounded-2xl text-lg shadow-sm shadow-gray-600
                 focus:translate-y-[-1px] focus:shadow-md outline-none transition-all "
-                placeholder="Search for some recipe"
+                placeholder="Search for recipe"
                 value={ searchQuery }
                 onChange={ (e) => setSearchQuery(e.target.value) }
             />

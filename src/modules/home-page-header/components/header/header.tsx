@@ -1,6 +1,5 @@
 import HeaderTitle from "../header-title/header-title.tsx";
 import { useState } from "react";
-import SearchBar from "../search-bar/search-bar.tsx";
 import OnAuthLinks from "../links/on-auth-links.tsx";
 import NoAuthLinks from "../links/no-auth-links.tsx";
 
@@ -10,15 +9,12 @@ function Header() {
     const [username] = useState<string>("John Johnson");
 
     return (
-        <header className="grid grid-cols-3 grid-rows-1 justify-items-center items-center">
+        <header className="flex justify-center gap-4 w-full">
             <HeaderTitle />
-            <SearchBar />
-            <div className="flex gap-2 justify-self-start">
-                {isAuth
-                    ? <OnAuthLinks username={ username } userID={'52'} />
-                    : <NoAuthLinks />
-                }
-            </div>
+            {isAuth
+                ? <OnAuthLinks username={ username } userID={'52'} />
+                : <NoAuthLinks />
+            }
         </header>
     );
 }
