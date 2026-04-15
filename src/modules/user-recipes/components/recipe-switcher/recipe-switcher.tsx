@@ -10,7 +10,7 @@ interface RecipeSwitcherProps {
 function RecipeSwitcher({ recipesState, setRecipesState }: RecipeSwitcherProps) {
 
     return (
-        <div className="bg-gray-200 rounded-lg">
+        <div className="bg-gray-100 rounded-lg">
             <Button
                 className={ ("text-center m-1 p-2 text-black hover:bg-gray-100 transition-all")
                     + (recipesState === "my" ? " bg-white hover:bg-white shadow shadow-gray-400" : " bg-transparent cursor-pointer") }

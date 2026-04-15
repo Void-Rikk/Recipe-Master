@@ -10,7 +10,7 @@ function UserAvatar({ src, alt }: UserAvatarProps) {
     return (
         <div className="flex justify-center items-center self-start
         rounded-full max-w-[10%] aspect-square
-        bg-gray-200"
+        bg-gray-100"
         >
             <img
                 className="w-[80%]"

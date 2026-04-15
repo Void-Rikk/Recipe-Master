@@ -11,7 +11,7 @@ interface FormSwitcherProps {
 function FormSwitcher({ formState, setFormState }: FormSwitcherProps) {
 
     return (
-        <div className="grid grid-cols-2 bg-gray-200 rounded-md">
+        <div className="grid grid-cols-2 bg-gray-100 rounded-md">
             <Button
                 className={ ("text-center m-2 p-2 text-black hover:bg-gray-100 transition-all")
                     + (formState === "login" ? " bg-white hover:bg-white shadow-md shadow-gray-400" : " bg-transparent cursor-pointer") }

@@ -26,7 +26,7 @@ function RecipePage() {
             mt-2 mb-2 p-4 shadow-[1px_1px_5px_1px] shadow-gray-300 relative
             max-md:w-full max-md:mt-0 max-md:rounded-none max-md:shadow-none"
         >
-            <figure className="self-center max-w-[80%]">
+            <figure className="flex justify-center">
                 <img className="rounded-2xl shadow-[1px_1px_5px_1px] max-h-80 aspect-video shadow-gray-400" src={ Pic } alt="recipe-picture" />
             </figure>
             <main className="flex flex-col gap-4 pl-[5%]">
