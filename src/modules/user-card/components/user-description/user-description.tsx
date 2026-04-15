@@ -1,7 +1,8 @@
-import Button from "../../../../shared/components/button/button.tsx";
+import { Link } from "react-router";
 
 
 interface UserDescriptionProps {
+    userId: string | undefined;
     username: string;
     userDescription: string;
     recipesAmount: number;
@@ -9,7 +10,9 @@ interface UserDescriptionProps {
     followingAmount: number;
 }
 
-function UserDescription({ username, userDescription, recipesAmount, followersAmount, followingAmount }: UserDescriptionProps) {
+function UserDescription({ userId, username, userDescription, recipesAmount, followersAmount, followingAmount }: UserDescriptionProps) {
+
+    if (!userId) return null;
 
     return (
         <div className="flex flex-col gap-4">
@@ -22,12 +25,14 @@ function UserDescription({ username, userDescription, recipesAmount, followersAm
                 <li>{ followersAmount } <span className="text-gray-500">followers</span></li>
                 <li>{ followingAmount } <span className="text-gray-500">following</span></li>
             </ul>
-            <Button
-                className="self-start shadow shadow-gray-600
+            <Link
+                to={`/user/edit/${userId}`}
+                className="bg-gray-900 p-2 rounded-lg
+                self-start shadow shadow-gray-600
                 hover:translate-y-[-1px] hover:cursor-pointer hover:shadow-md transition-all"
             >
-                Edit Profile
-            </Button>
+                <span className="text-white">Edit Profile</span>
+            </Link>
         </div>
     );
 }

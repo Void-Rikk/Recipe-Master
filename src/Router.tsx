@@ -4,6 +4,7 @@ import AuthPage from "./pages/auth-page/auth-page.tsx";
 import RecipePage from "./pages/recipe-page/recipe-page.tsx";
 import CreateRecipePage from "./pages/create-recipe-page/create-recipe-page.tsx";
 import UserPage from "./pages/user-page/user-page.tsx";
+import EditProfilePage from "./pages/edit-profile-page/edit-profile-page.tsx";
 
 
 export const router = createBrowserRouter([
@@ -16,12 +17,12 @@ export const router = createBrowserRouter([
         element: <AuthPage />
     },
     {
-        path: "/user/:id",
+        path: "/user/:userId",
         element: <UserPage />
     },
     {
         path: "/user/edit/:userId",
-        element: null
+        element: <EditProfilePage />
     },
     {
         path: "/create",

@@ -16,6 +16,7 @@ function UserCard() {
         >
             <UserAvatar src={ UserPlaceholder } alt={ "JJ" } />
             <UserDescription
+                userId={ userId }
                 username={ "John Johnson" }
                 userDescription={ "Sharing simple and tasty recipes" }
                 recipesAmount={ 12 }
