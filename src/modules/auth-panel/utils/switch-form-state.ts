@@ -1,4 +1,4 @@
-import type {Dispatch, SetStateAction} from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 type SwitchFormStateFn = (formState: "login" | "register",
                           setFormState: Dispatch<SetStateAction<"login" | "register">>,
