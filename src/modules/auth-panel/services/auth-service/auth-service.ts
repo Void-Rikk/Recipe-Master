@@ -1,16 +1,16 @@
 interface IAuthService {
-    login(nickname: string, password: string): void;
-    register(nickname: string, password: string, confirmPassword: string): void;
+    login(firstName: string, lastName: string, password: string): void;
+    register(firstName: string, lastName: string, password: string): void;
 }
 
 class AuthService implements IAuthService {
 
-    login(nickname: string, password: string): void {
-        console.log(nickname, password);
+    login(firstName: string, lastName: string, password: string): void {
+
     }
 
-    register(nickname: string, password: string, passwordConfirm: string): void {
-        console.log(nickname, password, passwordConfirm);
+    register(firstName: string, lastName: string, password: string): void {
+
     }
 }
 
