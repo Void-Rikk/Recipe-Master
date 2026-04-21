@@ -2,8 +2,8 @@ import type { User } from "../../../../shared/utils/types.ts";
 import { BASE_URL } from "../../../../shared/constants/constants.ts";
 
 interface IAuthService {
-    login(firstName: string, lastName: string, password: string): void;
-    register(firstName: string, lastName: string, password: string): void;
+    login(firstName: string, lastName: string, password: string): Promise<User>;
+    register(firstName: string, lastName: string, password: string): Promise<User>;
 }
 
 

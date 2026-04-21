@@ -18,13 +18,18 @@ function LikeButton({ likes, isLiked }: LikeButtonProps) {
 
     return (
         <Button
-            className="min-w-min min-h-min p-0 flex items-center gap-2 text-gray-800 bg-transparent hover:bg-transparent"
+            className="min-w-min min-h-min p-0 flex items-center gap-2
+             text-gray-800 bg-transparent hover:bg-transparent"
         >
             <Heart
-                className={`hover:cursor-pointer w-6 h-6 ${ isLikedState ? "fill-gray-800" : "fill-transparent" }`}
+                className={`hover:cursor-pointer w-7 h-7
+                ${ isLikedState
+                    ? "fill-gray-800"
+                    : "fill-transparent" 
+                }`}
                 onClick={ (e) => handleSetLike(e) }
             />
-            { likes }
+            <span className="text-xl">{ likes }</span>
         </Button>
     );
 }

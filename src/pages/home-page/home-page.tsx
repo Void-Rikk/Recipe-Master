@@ -2,39 +2,45 @@ import { Header } from "../../modules/home-page-header";
 import { RecipeCard } from "../../modules/recipe-card";
 import SearchBar from "../../modules/home-page-header/components/search-bar/search-bar.tsx";
 import { ChevronUp } from "lucide-react";
-
-
-const testCard = [
-    {id: "1", name: "Spaghetti", author: {id: "1", firstname: "John", lastname: "Johnson"}, likes: 12, isLiked: false},
-    {id: "2", name: "Burger", author: {id: "2", firstname: "Ken", lastname: "Clash"}, likes: 2, isLiked: true},
-    {id: "3", name: "Pickles", author: {id: "3", firstname: "Alex", lastname: "Melikh"}, likes: 10, isLiked: false},
-    {id: "4", name: "Pizza", author: {id: "4", firstname: "Danil", lastname: "Bratsev"}, likes: 5, isLiked: true},
-    {id: "5", name: "Pasta", author: {id: "5", firstname: "Bruh", lastname: "Bruhov"}, likes: 0, isLiked: false},
-    {id: "6", name: "Cake", author: {id: "6", firstname: "Lian", lastname: "Li"}, likes: 34, isLiked: true},
-    {id: "7", name: "Cake", author: {id: "6", firstname: "Lian", lastname: "Li"}, likes: 34, isLiked: true},
-    {id: "8", name: "Cake", author: {id: "6", firstname: "Lian", lastname: "Li"}, likes: 34, isLiked: true}
-];
+import { useFetch } from "../../shared/hooks/hooks.ts";
+import RecipesService from "../../shared/services/recipes-service/recipes-service.ts";
+import { useEffect, useState } from "react";
+import type { Recipe } from "../../shared/utils/types.ts";
+import Loader from "../../shared/components/loader/loader.tsx";
 
 
 function HomePage() {
+    const [recipes, setRecipes] = useState<Recipe[]>([]);
+    const { fetching: fetchRecipes, isLoading, error } = useFetch(async () => {
+        const data = await RecipesService.getAll();
+        setRecipes(data);
+    });
+
+    useEffect(() => {
+        fetchRecipes();
+    }, []);
 
     return (
         <div className="relative flex flex-col items-center gap-8 p-2">
             <Header />
-            <main className="flex flex-col items-center gap-4 w-[80%]"
+            <main className="flex flex-col items-center gap-4 w-[80%] max-md:w-[95%]"
             >
                 <SearchBar />
                 <section className="flex flex-wrap gap-4">
-                    {testCard.map(card => (
+                    { isLoading && <Loader className="border-10 w-30 h-30 mt-10" /> }
+                    { error && <h2 className="text-xl text-red-500 pt-10">{ error.message }</h2> }
+                    { recipes.map(recipe => (
                         <RecipeCard
-                            key={ card.id }
-                            recipeID={ card.id }
-                            recipeName={ card.name }
-                            author={ card.author }
-                            likes={ card.likes }
-                            isLiked={ card.isLiked }
+                            key={ recipe.id }
+                            recipeID={ recipe.id }
+                            recipeName={ recipe.name }
+                            authorId={ recipe.user_id }
+                            authorFirstName={ recipe.first_name }
+                            authorLastName={ recipe.last_name }
+                            likes={ recipe.likes_count }
+                            isLiked={ false }
                         />
-                    ))}
+                    )) }
                 </section>
             </main>
             <a

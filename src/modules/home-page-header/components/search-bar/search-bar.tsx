@@ -14,7 +14,7 @@ function SearchBar() {
 
     return (
         <form
-            className="flex items-center gap-6 w-[50%]
+            className="flex items-center gap-6 min-w-[50%]
             max-md:w-[100%]"
             onSubmit={ (e) => handleSearch(e) }
         >
