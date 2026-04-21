@@ -29,3 +29,5 @@ export const useFetch = (callback: CallbackFn) => {
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 
 export const useAppSelector = useSelector.withTypes<RootState>();
+
+export const useAuth = () => useAppSelector(state => state.user.isAuthenticated);

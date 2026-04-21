@@ -1,29 +1,31 @@
 import type { User } from "../../utils/types.ts";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-
-export type UserState = User;
+export type UserState = {
+    user: User | null,
+    isAuthenticated: boolean,
+}
 
 const initialState: UserState = {
-    id: -1,
-    first_name: "",
-    last_name: "",
-    bio: "",
+    user: null,
+    isAuthenticated: false,
 };
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        set: (state, action: PayloadAction<UserState>) => {
-            state.id = action.payload.id;
-            state.first_name = action.payload.first_name;
-            state.last_name = action.payload.last_name;
-            state.bio = action.payload.bio;
+        setUser: (state, action: PayloadAction<User>) => {
+            state.user = action.payload;
+            state.isAuthenticated = true;
+        },
+        clearUser: (state) => {
+            state.user = null;
+            state.isAuthenticated = false;
         }
     }
 });
 
-export const { set } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 
 export default userSlice.reducer;

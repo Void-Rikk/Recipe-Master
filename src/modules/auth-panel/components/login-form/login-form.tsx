@@ -7,7 +7,7 @@ import { validateAuth } from "../../utils/validate-auth.ts";
 import { useNavigate } from "react-router";
 import AuthService from "../../services/auth-service/auth-service.ts";
 import { useAppDispatch } from "../../../../shared/hooks/hooks.ts";
-import { set } from "../../../../shared/stores/slices/user-slice.ts";
+import { setUser } from "../../../../shared/stores/slices/user-slice.ts";
 
 
 function LoginForm() {
@@ -32,7 +32,8 @@ function LoginForm() {
         try {
             setIsLoading(true);
             const user = await AuthService.login(firstName, lastName, password);
-            dispatch(set(user));
+            dispatch(setUser(user));
+            localStorage.setItem("user", JSON.stringify({ ...user, isAuthenticated: true }));
             navigate("/");
         }
         catch (e) {

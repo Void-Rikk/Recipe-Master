@@ -1,13 +1,10 @@
 import { Link } from "react-router";
 import { CircleUserRound, SquarePlus } from "lucide-react";
+import { useAppSelector } from "../../../../shared/hooks/hooks.ts";
 
 
-interface OnAuthLinksProps {
-    username: string;
-    userID: string;
-}
-
-function OnAuthLinks({ username, userID }: OnAuthLinksProps) {
+function OnAuthLinks() {
+    const user = useAppSelector(state => state.user.user);
 
     return (
         <>
@@ -23,7 +20,7 @@ function OnAuthLinks({ username, userID }: OnAuthLinksProps) {
                 <span className="max-md:hidden">Create Recipe</span>
             </Link>
             <Link
-                to={ `/user/${userID}` }
+                to={ `/user/${user ? user.id : -1}` }
                 className="flex items-center gap-2 text-lg
                 border border-transparent rounded-full p-2
                 shadow shadow-transparent
@@ -31,7 +28,7 @@ function OnAuthLinks({ username, userID }: OnAuthLinksProps) {
                 aria-label="User profile link"
             >
                 <CircleUserRound className="max-md:w-10 max-md:h-10" />
-                <span className="max-md:hidden">{ username }</span>
+                <span className="max-md:hidden">{ user ? `${user.first_name} ${user.last_name}` : "" }</span>
             </Link>
         </>
     );
