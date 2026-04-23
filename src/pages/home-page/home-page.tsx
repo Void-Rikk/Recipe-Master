@@ -2,7 +2,7 @@ import { Header } from "../../modules/home-page-header";
 import { RecipeCard } from "../../modules/recipe-card";
 import SearchBar from "../../modules/home-page-header/components/search-bar/search-bar.tsx";
 import { ChevronUp } from "lucide-react";
-import { useFetch } from "../../shared/hooks/hooks.ts";
+import { useAppSelector, useAuth, useFetch } from "../../shared/hooks/hooks.ts";
 import RecipesService from "../../shared/services/recipes-service/recipes-service.ts";
 import { useEffect, useState } from "react";
 import type { Recipe } from "../../shared/utils/types.ts";
@@ -11,14 +11,25 @@ import Loader from "../../shared/components/loader/loader.tsx";
 
 function HomePage() {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
+    const isAuth = useAuth();
+    const userId = useAppSelector(state => state.user.user?.id);
+    const [likesMap, setLikesMap] = useState<Record<string, boolean>>({});
+
     const { fetching: fetchRecipes, isLoading, error } = useFetch(async () => {
-        const data = await RecipesService.getAll();
-        setRecipes(data);
+        if (isAuth) {
+            const data = await RecipesService.getAllWithLikes(userId!);
+            setRecipes(data.recipes);
+            setLikesMap(data.likes);
+        }
+        else {
+            const data = await RecipesService.getAll();
+            setRecipes(data);
+        }
     });
 
     useEffect(() => {
         fetchRecipes();
-    }, []);
+    }, [isAuth]);
 
     return (
         <div className="relative flex flex-col items-center gap-8 p-2">
@@ -38,7 +49,7 @@ function HomePage() {
                             authorFirstName={ recipe.first_name }
                             authorLastName={ recipe.last_name }
                             likes={ recipe.likes_count }
-                            isLiked={ false }
+                            isLiked={ likesMap[recipe.id] !== undefined ? true : false }
                         />
                     )) }
                 </section>

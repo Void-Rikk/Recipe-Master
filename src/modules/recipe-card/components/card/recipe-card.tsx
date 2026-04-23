@@ -39,6 +39,7 @@ function RecipeCard({ recipeID, recipeName, authorId, authorFirstName, authorLas
             </div>
             <p className="justify-self-end">
                 <LikeButton
+                    recipeId={ recipeID }
                     likes={ likes }
                     isLiked={ isLiked }
                 />
