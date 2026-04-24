@@ -1,38 +1,58 @@
 import Input from "../../../../shared/components/input/input.tsx";
-import Button from "../../../../shared/components/button/button.tsx";
+import { type Dispatch, type SetStateAction, useState } from "react";
+import type { Recipe } from "../../../../shared/utils/types.ts";
+import { debounce } from "../../../../shared/utils/utils.ts";
+import RecipesService from "../../../../shared/services/recipes-service/recipes-service.ts";
 import { Search } from "lucide-react";
-import { type SubmitEventHandler, useState } from "react";
 
 
-function SearchBar() {
-    const [searchQuery, setSearchQuery] = useState<string>("");
+interface SearchBarProps {
+    setRecipes: Dispatch<SetStateAction<Recipe[]>>;
+    setLikesMap: Dispatch<SetStateAction<Record<string, boolean>>>
+    userId: number | undefined;
+}
 
-    const handleSearch: SubmitEventHandler = (e) => {
-        e.preventDefault();
-        if (searchQuery.length === 0) return;
-    }
+type SearchHandler = (searchQuery: string) => Promise<void>;
+
+function SearchBar({ setRecipes, userId, setLikesMap }: SearchBarProps) {
+    const [isSearching, setIsSearching] = useState<boolean>(false);
+    const handleSearch = debounce<SearchHandler>(async (searchQuery: string) => {
+        setIsSearching(true);
+        if (!userId) {
+            const recipes = await RecipesService.searchRecipes(searchQuery);
+            setRecipes(recipes);
+            setIsSearching(false);
+        }
+        else {
+            const data = await RecipesService.searchRecipesWithLikes(searchQuery, userId);
+            setRecipes(data.recipes);
+            setLikesMap(data.likes);
+            setIsSearching(false);
+        }
+    }, 1000);
 
     return (
         <form
             className="flex items-center gap-6 min-w-[50%]
             max-md:w-[100%]"
-            onSubmit={ (e) => handleSearch(e) }
         >
-            <Input
-                type="text"
-                className="h-10 w-[60%] grow-1 rounded-2xl text-lg shadow-sm shadow-gray-600
-                focus:translate-y-[-1px] focus:shadow-md outline-none transition-all "
-                placeholder="Search for recipe"
-                value={ searchQuery }
-                onChange={ (e) => setSearchQuery(e.target.value) }
-            />
-            <Button
-                className="flex justify-center items-center p-2 min-w-8 min-h-8 rounded-full
-                hover:translate-y-[-1px] hover:bg-gray-900 hover:shadow-md hover:cursor-pointer
-                 shadow-sm shadow-gray-900 transition-all"
+            <div
+                className="flex justify-between items-center pr-4
+                bg-gray-900 w-full rounded-2xl
+                shadow-sm shadow-gray-400
+                has-[input:focus]:translate-y-[-1px] has-[input:focus]:shadow-md transition-all"
             >
-                <Search />
-            </Button>
+                <Input
+                    type="text"
+                    className="h-10 w-[90%] grow-1 rounded-2xl text-lg
+                    outline-none"
+                    placeholder="Search for recipe"
+                    onChange={ (e) => handleSearch(e.target.value) }
+                />
+                <Search
+                    className={`${ isSearching ? "animate-pulse text-white" : "animate-none text-gray-400" }`}
+                />
+            </div>
         </form>
     );
 }

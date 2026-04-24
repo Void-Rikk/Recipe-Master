@@ -24,6 +24,7 @@ function HomePage() {
         else {
             const data = await RecipesService.getAll();
             setRecipes(data);
+            setLikesMap({});
         }
     });
 
@@ -36,7 +37,7 @@ function HomePage() {
             <Header />
             <main className="flex flex-col items-center gap-4 w-[80%] max-md:w-[95%]"
             >
-                <SearchBar />
+                <SearchBar setRecipes={ setRecipes } userId={ userId } setLikesMap={ setLikesMap } />
                 <section className="flex flex-wrap gap-4">
                     { isLoading && <Loader className="border-10 w-30 h-30 mt-10" /> }
                     { error && <h2 className="text-xl text-red-500 pt-10">{ error.message }</h2> }
