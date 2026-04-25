@@ -15,7 +15,7 @@ function InstructionsFieldset({ form, setForm }: InstructionsFieldsetProps) {
     const handleAddInstructionField = () => {
         setForm(prev => ({
             ...prev,
-            instructions: [...prev.instructions, { value: "", id: Date.now() }]
+            instructions: [...prev.instructions, { description: "", id: Date.now() }]
         }));
     }
 
@@ -24,7 +24,7 @@ function InstructionsFieldset({ form, setForm }: InstructionsFieldsetProps) {
             ...prev,
             instructions: prev.instructions.map((inp) => {
                 if (inp.id === id) {
-                    return { value: e.target.value, id };
+                    return { description: e.target.value, id };
                 }
                 else {
                     return inp;
@@ -45,7 +45,7 @@ function InstructionsFieldset({ form, setForm }: InstructionsFieldsetProps) {
             <div
                 className="flex justify-between items-center"
             >
-                <span className="text-2xl">Instructions</span>
+                <span className="text-2xl">Инструкции</span>
                 <Button
                     type="button"
                     onClick={ handleAddInstructionField }
@@ -54,7 +54,7 @@ function InstructionsFieldset({ form, setForm }: InstructionsFieldsetProps) {
                     hover:translate-y-[-1px] hover:shadow-md"
                 >
                     <Plus />
-                    <span className="text-lg">Add</span>
+                    <span className="text-lg">Добавить</span>
                 </Button>
             </div>
             <fieldset className="flex flex-col gap-2">
@@ -62,8 +62,8 @@ function InstructionsFieldset({ form, setForm }: InstructionsFieldsetProps) {
                     <div key={ input.id } className="flex items-start gap-4">
                         <TextArea
                             className="grow-1 shadow shadow-gray-600"
-                            placeholder={`Instruction ${index + 1}`}
-                            value={ input.value }
+                            placeholder={`Инструкция ${index + 1}`}
+                            value={ input.description }
                             onChange={ (e) => handleChangeInstructionInput(e, input.id) }
                         >
                         </TextArea>

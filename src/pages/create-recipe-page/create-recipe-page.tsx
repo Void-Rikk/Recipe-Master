@@ -6,8 +6,8 @@ import { CreateRecipeForm } from "../../modules/create-recipe-form";
 function CreateRecipePage() {
 
     return (
-        <div className="flex flex-col gap-4 w-[55%] h-[100vh]
-            rounded-md mt-2 mb-2
+        <div className="flex flex-col gap-4 w-[55%] min-h-[100vh]
+            rounded-md mt-2 mb-2 pb-2
             shadow-[1px_1px_5px_1px] shadow-gray-300
             max-md:w-full max-md:mt-0 max-md:rounded-none max-md:shadow-none max-md:h-min"
         >
@@ -18,7 +18,7 @@ function CreateRecipePage() {
                 <ChevronLeft />
             </Link>
 
-            <h1 className="pl-[4%] text-3xl">Create Recipe</h1>
+            <h1 className="pl-[4%] text-3xl">Создать рецепт</h1>
 
             <CreateRecipeForm />
         </div>

@@ -24,10 +24,10 @@ const inputVariants = cva(
     }
 );
 
-function Input( { className, variant, size, ...props }: Omit<ComponentProps<"input">, "size"> & VariantProps<typeof inputVariants> ) {
+function Input( { className, variant, size, ref, ...props }: Omit<ComponentProps<"input">, "size"> & VariantProps<typeof inputVariants> ) {
 
     return (
-        <input { ...props } className={ twMerge(inputVariants({ variant, size, className })) }/>
+        <input { ...props } ref={ ref } className={ twMerge(inputVariants({ variant, size, className })) }/>
     );
 }
 

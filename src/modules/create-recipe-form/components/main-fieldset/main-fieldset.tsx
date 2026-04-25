@@ -38,26 +38,26 @@ function MainFieldset({ form, setForm }: MainFieldSetProps) {
             className="flex flex-col gap-6"
         >
             <Label className="flex flex-col">
-                <span className="text-xl">Title</span>
+                <span className="text-xl">Название</span>
                 <Input
-                    placeholder="Recipe name"
+                    placeholder="Название рецепта"
                     value={ form.title }
                     onChange={ handleChangeTitle }
                     className="shadow shadow-gray-600"
                 />
             </Label>
             <Label className="flex flex-col">
-                <span className="text-xl">Description</span>
+                <span className="text-xl">Описание</span>
                 <TextArea
-                    placeholder="Short description"
+                    placeholder="Небольшое описание"
                     value={ form.description }
                     onChange={ handleChangeDescription }
                     className="shadow shadow-gray-600"
                 >
                 </TextArea>
             </Label>
-            <Label className="flex flex-col">
-                <span className="text-xl">Image</span>
+            <Label className="flex flex-col self-start">
+                <span className="text-xl">Изображение</span>
                 <Input
                     type="file"
                     className="self-start shadow shadow-gray-600 hover:cursor-pointer"
