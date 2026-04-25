@@ -14,7 +14,7 @@ function NoAuthLinks() {
                     className="w-8 h-8
                     max-md:w-10 max-md:h-10"
                 />
-                Sign in
+                Войти
             </Link>
         </>
     );

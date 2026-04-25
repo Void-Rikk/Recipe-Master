@@ -12,6 +12,8 @@ type Recipe = {
     description: string,
     user_id: number,
     likes_count: number,
+    image_id: string,
+    image_extension: string,
 } & Omit<User, "id">
 
 export { type User, type Recipe};

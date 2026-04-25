@@ -50,6 +50,8 @@ function HomePage() {
                             authorFirstName={ recipe.first_name }
                             authorLastName={ recipe.last_name }
                             likes={ recipe.likes_count }
+                            imageId={ recipe.image_id }
+                            image_extension={ recipe.image_extension }
                             isLiked={ likesMap[recipe.id] !== undefined ? true : false }
                         />
                     )) }

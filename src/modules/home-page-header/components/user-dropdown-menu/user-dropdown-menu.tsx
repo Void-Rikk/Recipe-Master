@@ -50,7 +50,7 @@ function UserDropdownMenu() {
                         <User
                             className="w-6 h-6"
                         />
-                        <span>Profile</span>
+                        <span>Профиль</span>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -63,7 +63,7 @@ function UserDropdownMenu() {
                         <LogOut
                             className="w-6 h-6"
                         />
-                        <span>Log Out</span>
+                        <span>Выйти</span>
                     </Button>
                 </DropdownMenuItem>
             </DropdownMenuContent>

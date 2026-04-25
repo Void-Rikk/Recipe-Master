@@ -1,6 +1,7 @@
 import Pic from "../../../../../napoleon-test-image.png"; // placeholder
 import LikeButton from "../like-button/like-button.tsx";
 import RecipeDescription from "../recipe-description/recipe-description.tsx";
+import { BASE_URL } from "../../../../shared/constants/constants.ts";
 
 
 interface CardProps {
@@ -11,9 +12,11 @@ interface CardProps {
     authorId: number;
     authorFirstName: string;
     authorLastName: string;
+    imageId: string;
+    image_extension: string;
 }
 
-function RecipeCard({ recipeID, recipeName, authorId, authorFirstName, authorLastName, likes, isLiked }: CardProps) {
+function RecipeCard({ recipeID, imageId, image_extension, recipeName, authorId, authorFirstName, authorLastName, likes, isLiked }: CardProps) {
 
     return (
         <div
@@ -24,7 +27,7 @@ function RecipeCard({ recipeID, recipeName, authorId, authorFirstName, authorLas
             max-md:w-[100%] max-lg:w-[45%]"
         >
             <img
-                src={ Pic }
+                src={ imageId ? `${BASE_URL}/recipe-images/${imageId}${image_extension}` : Pic }
                 alt={ recipeName + " picture" }
                 className="w-[100%] h-[100%] rounded-md"
             />

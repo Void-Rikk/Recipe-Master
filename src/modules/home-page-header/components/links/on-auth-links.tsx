@@ -16,7 +16,7 @@ function OnAuthLinks() {
                 aria-label="Create recipe link"
             >
                 <SquarePlus className="max-md:w-10 max-md:h-10" />
-                <span className="max-md:hidden">Create Recipe</span>
+                <span className="max-md:hidden">Создать рецепт</span>
             </Link>
 
             <UserDropdownMenu />

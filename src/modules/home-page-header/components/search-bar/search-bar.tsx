@@ -46,7 +46,7 @@ function SearchBar({ setRecipes, userId, setLikesMap }: SearchBarProps) {
                     type="text"
                     className="h-10 w-[90%] grow-1 rounded-2xl text-lg
                     outline-none"
-                    placeholder="Search for recipe"
+                    placeholder="Поиск по названию"
                     onChange={ (e) => handleSearch(e.target.value) }
                 />
                 <Search
