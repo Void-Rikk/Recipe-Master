@@ -2,12 +2,12 @@ import Label from "../../../../shared/components/label/label.tsx";
 import Input from "../../../../shared/components/input/input.tsx";
 import Button from "../../../../shared/components/button/button.tsx";
 import { type SubmitEventHandler, useState } from "react";
-import { validateAuth } from "../../utils/validate-auth.ts";
 import { useNavigate } from "react-router";
-import AuthService from "../../services/auth-service/auth-service.ts";
+import AuthService from "../../services/services.ts";
 import Loader from "../../../../shared/components/loader/loader.tsx";
 import { useAppDispatch } from "../../../../shared/hooks/hooks.ts";
 import { setUser } from "../../../../shared/stores/slices/user-slice.ts";
+import { validateAuth } from "../../utils/utils.ts";
 
 
 function RegisterForm() {

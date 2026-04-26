@@ -3,11 +3,11 @@ import Input from "../../../../shared/components/input/input.tsx";
 import { type SubmitEventHandler, useState } from "react";
 import Button from "../../../../shared/components/button/button.tsx";
 import Loader from "../../../../shared/components/loader/loader.tsx";
-import { validateAuth } from "../../utils/validate-auth.ts";
 import { useNavigate } from "react-router";
-import AuthService from "../../services/auth-service/auth-service.ts";
+import AuthService from "../../services/services.ts";
 import { useAppDispatch } from "../../../../shared/hooks/hooks.ts";
 import { setUser } from "../../../../shared/stores/slices/user-slice.ts";
+import { validateAuth } from "../../utils/utils.ts";
 
 
 function LoginForm() {

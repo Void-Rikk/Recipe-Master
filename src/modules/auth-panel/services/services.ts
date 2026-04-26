@@ -1,5 +1,5 @@
-import type { User } from "../../../../shared/utils/types.ts";
-import { BASE_URL } from "../../../../shared/constants/constants.ts";
+import type { User } from "../../../shared/utils/types.ts";
+import { BASE_URL } from "../../../shared/constants/constants.ts";
 
 interface IAuthService {
     login(firstName: string, lastName: string, password: string): Promise<User>;
@@ -7,7 +7,7 @@ interface IAuthService {
 }
 
 
-class AuthService implements IAuthService {
+class Services implements IAuthService {
 
     async login(firstName: string, lastName: string, password: string): Promise<User> {
         const response = await fetch(`${BASE_URL}/login`, {
@@ -66,4 +66,4 @@ class AuthService implements IAuthService {
     }
 }
 
-export default new AuthService();
+export default new Services();
