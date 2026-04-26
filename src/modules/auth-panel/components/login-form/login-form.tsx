@@ -53,33 +53,33 @@ function LoginForm() {
         >
             <fieldset className="flex flex-col gap-2">
                 <Label className="flex flex-col">
-                    <span className="pl-2">First Name</span>
+                    <span className="pl-2">Имя</span>
                     <Input
                         className="shadow shadow-gray-600"
                         type="text"
-                        placeholder="Enter your first name"
+                        placeholder="Введите ваше имя"
                         value={ firstName }
                         onChange={ (e) => setFirstName(e.target.value) }
                         required
                     />
                 </Label>
                 <Label className="flex flex-col">
-                    <span className="pl-2">Last Name</span>
+                    <span className="pl-2">Фамилия</span>
                     <Input
                         className="shadow shadow-gray-600"
                         type="text"
-                        placeholder="Enter your last name"
+                        placeholder="Введите вашу фамилию"
                         value={ lastName }
                         onChange={ (e) => setLastName(e.target.value) }
                         required
                     />
                 </Label>
                 <Label className="flex flex-col">
-                    <span className="pl-2">Password</span>
+                    <span className="pl-2">Пароль</span>
                     <Input
                         className="shadow shadow-gray-600"
                         type="password"
-                        placeholder="Enter your password"
+                        placeholder="Введите пароль"
                         value={ password }
                         onChange={ (e) => setPassword(e.target.value) }
                         required
@@ -97,7 +97,7 @@ function LoginForm() {
                 shadow shadow-gray-600
                 hover:translate-y-[-1px] hover:shadow-md"
             >
-                Login
+                Вход
             </Button>
         </form>
     );

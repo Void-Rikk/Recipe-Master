@@ -18,7 +18,7 @@ function FormSwitcher({ formState, setFormState }: FormSwitcherProps) {
 
                 onClick={ () => switchFormState(formState, setFormState, "login") }
             >
-                Login
+                Вход
             </Button>
 
             <Button
@@ -27,7 +27,7 @@ function FormSwitcher({ formState, setFormState }: FormSwitcherProps) {
 
                 onClick={ () => switchFormState(formState, setFormState, "register") }
             >
-                Register
+                Регистрация
             </Button>
         </div>
     );

@@ -31,13 +31,13 @@ const NameRegExp = /^[a-zA-Z]+$/;
 export const validateAuth: ValidateAuthFn = (firstName, lastName, password, setError) => {
 
     if (firstName.length < 2 || lastName.length < 2) {
-        setError("First/Last name must contain at least 2 characters");
+        setError("Минимальная длина имени/фамилии - 2 символа");
     }
     else if (!NameRegExp.test(firstName) || !NameRegExp.test(lastName)) {
-        setError("First/Last name consists of only letters");
+        setError("Имя/Фамилия должны состоять только из букв");
     }
     else if (password.length < 8) {
-        setError("Password length must be at least 8 characters");
+        setError("Минимальная длина пароля - 8 символов");
     }
     else {
         setError(null);
