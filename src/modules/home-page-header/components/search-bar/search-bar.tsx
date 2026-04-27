@@ -2,7 +2,7 @@ import Input from "../../../../shared/components/input/input.tsx";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import type { Recipe } from "../../../../shared/utils/types.ts";
 import { debounce } from "../../../../shared/utils/utils.ts";
-import RecipesService from "../../../../shared/services/recipes-service/recipes-service.ts";
+import RecipesService from "../../../../shared/services/services.ts";
 import { Search } from "lucide-react";
 
 

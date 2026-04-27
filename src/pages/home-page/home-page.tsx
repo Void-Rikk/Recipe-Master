@@ -3,7 +3,7 @@ import { RecipeCard } from "../../modules/recipe-card";
 import SearchBar from "../../modules/home-page-header/components/search-bar/search-bar.tsx";
 import { ChevronUp } from "lucide-react";
 import { useAppSelector, useAuth, useFetch } from "../../shared/hooks/hooks.ts";
-import RecipesService from "../../shared/services/recipes-service/recipes-service.ts";
+import RecipesService from "../../shared/services/services.ts";
 import { useEffect, useState } from "react";
 import type { Recipe } from "../../shared/utils/types.ts";
 import Loader from "../../shared/components/loader/loader.tsx";

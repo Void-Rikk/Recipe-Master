@@ -1,10 +1,14 @@
 
 
-function RecipeHeader() {
+interface RecipeHeaderProps {
+    header: string;
+}
+
+function RecipeHeader({ header }: RecipeHeaderProps) {
 
     return (
         <h1 className="text-3xl">
-            Spaghetti Carbonara
+            { header }
         </h1>
     );
 }

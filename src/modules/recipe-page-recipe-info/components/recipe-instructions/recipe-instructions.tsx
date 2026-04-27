@@ -1,15 +1,25 @@
+import type { Instruction } from "../../utils/types.ts";
 
 
-function RecipeInstructions() {
+interface RecipeInstructionsProps {
+    instructions: Instruction[];
+}
+
+function RecipeInstructions({ instructions }: RecipeInstructionsProps) {
 
     return (
         <section className="flex flex-col gap-1">
             <h3 className="text-xl">Instructions</h3>
             <ol className="list-decimal list-inside">
-                <li>Boil pasta in salted water</li>
-                <li>Fry pancetta until crispy</li>
-                <li>Mix eggs and cheese</li>
-                <li>Combine everything together</li>
+                {
+                    instructions.map(instruction => (
+                        <li
+                            key={ instruction.id }
+                        >
+                            { instruction.description }
+                        </li>
+                    ))
+                }
             </ol>
         </section>
     );

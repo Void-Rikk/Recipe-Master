@@ -1,5 +1,6 @@
-import { BASE_URL } from "../../constants/constants.ts";
-import type { Recipe } from "../../utils/types.ts";
+import { BASE_URL } from "../constants/constants.ts";
+import type { Recipe } from "../utils/types.ts";
+
 
 type RecipesWithLikesResponse = {
     recipes: Recipe[],
@@ -8,10 +9,12 @@ type RecipesWithLikesResponse = {
 
 interface IRecipesService {
     getAll(): Promise<Recipe[]>;
-    getAllWithLikes(userId: number): Promise<RecipesWithLikesResponse>
+    getAllWithLikes(userId: number): Promise<RecipesWithLikesResponse>;
+    searchRecipes(searchQuery: string): Promise<Recipe[]>;
+    searchRecipesWithLikes(searchQuery: string, userId: number): Promise<RecipesWithLikesResponse>;
 }
 
-class RecipesService implements IRecipesService {
+class Services implements IRecipesService {
 
     async getAll(): Promise<Recipe[]> {
         const response = await fetch(`${BASE_URL}/getRecipes`);
@@ -66,4 +69,4 @@ class RecipesService implements IRecipesService {
     }
 }
 
-export default new RecipesService();
+export default new Services();
