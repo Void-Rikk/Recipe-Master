@@ -12,14 +12,15 @@ function RecipePage() {
             mt-2 mb-2 p-4 shadow-[1px_1px_5px_1px] shadow-gray-300 relative
             max-md:w-full max-md:mt-0 max-md:rounded-none max-md:shadow-none"
         >
-            <RecipeInfo />
-            <CommentSection />
             <Link
                 to="/"
-                className="absolute left-3 top-3"
+                className="flex items-center gap-1"
             >
                 <ChevronLeft />
+                <span>Home</span>
             </Link>
+            <RecipeInfo />
+            <CommentSection />
         </div>
     );
 }

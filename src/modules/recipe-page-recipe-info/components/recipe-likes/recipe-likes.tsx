@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import { useAppSelector, useAuth, useFetch } from "../../../../shared/hooks/hooks.ts";
 import { LikeService } from "../../../recipe-card";
 import { useParams } from "react-router";
-import {ExactLikeStateServ} from "../../services/services.ts";
+import { ExactLikeStateServ } from "../../services/services.ts";
 
 
 interface RecipeLikesProps {
