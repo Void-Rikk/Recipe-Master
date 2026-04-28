@@ -5,7 +5,7 @@ import { type SubmitEventHandler, useState } from "react";
 import { useNavigate } from "react-router";
 import AuthService from "../../services/services.ts";
 import Loader from "../../../../shared/components/loader/loader.tsx";
-import { useAppDispatch } from "../../../../shared/hooks/hooks.ts";
+import { useAppDispatch, useFetch } from "../../../../shared/hooks/hooks.ts";
 import { setUser } from "../../../../shared/stores/slices/user-slice.ts";
 import { validateAuth } from "../../utils/utils.ts";
 
@@ -15,41 +15,31 @@ function RegisterForm() {
     const [lastName, setLastName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
-    const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [validationError, setValidationError] = useState<string | null>(null);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    const { fetching: registerUser, isLoading, error } = useFetch(async () => {
+        const user = await AuthService.register(firstName, lastName, password);
+        dispatch(setUser(user));
+        localStorage.setItem("user", JSON.stringify({ ...user, isAuthenticated: true }));
+        navigate("/");
+    });
 
     const handleSubmit: SubmitEventHandler = async (e) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            setError("Password was not confirmed");
+            setValidationError("Пароль не подтверждён");
             return;
         }
 
-        if (!validateAuth(firstName, lastName, password, setError)) {
+        if (!validateAuth(firstName, lastName, password, setValidationError)) {
             return;
         }
 
-        setError(null);
-
-        try {
-            setIsLoading(true);
-            const user = await AuthService.register(firstName, lastName, password);
-            dispatch(setUser(user));
-            localStorage.setItem("user", JSON.stringify({ ...user, isAuthenticated: true }));
-            navigate("/");
-        }
-        catch (e) {
-            if (e instanceof Error) {
-                setError(e.message);
-            }
-        }
-        finally {
-            setIsLoading(false);
-        }
+        registerUser();
     }
 
     return (
@@ -104,8 +94,7 @@ function RegisterForm() {
                 </Label>
             </fieldset>
 
-            <span className={ error ? "text-red-500 block text-center" : "hidden" }>{ error }</span>
-
+            { (error || validationError) && <span className="text-red-500 text-center">{ error ? error.message : validationError }</span>  }
             { isLoading && <div className="self-center"><Loader /></div> }
 
             <Button
