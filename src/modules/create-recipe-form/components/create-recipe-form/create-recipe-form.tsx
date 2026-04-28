@@ -4,18 +4,24 @@ import MainFieldset from "../main-fieldset/main-fieldset.tsx";
 import InstructionsFieldset from "../instructions-fieldset/instructions-fieldset.tsx";
 import { type SubmitEventHandler, useState } from "react";
 import FormControls from "../form-controls/form-controls.tsx";
-import {createFormData, validateCreateRecipeForm} from "../../utils/utils.ts";
+import { createFormData, validateCreateRecipeForm } from "../../utils/utils.ts";
 import CreateRecipeService from "../../services/services.ts";
-import { useAppSelector } from "../../../../shared/hooks/hooks.ts";
+import { useAppSelector, useFetch } from "../../../../shared/hooks/hooks.ts";
 import { initialFormState } from "../../constants/constants.ts";
 
 
 function CreateRecipeForm() {
     const [form, setForm] = useCreateRecipeForm();
-    const [error, setError] = useState<string | null>(null);
-    const [isCreating, setIsCreating] = useState<boolean>(false);
+    const [validationError, setValidationError] = useState<string | null>(null);
     const [result, setResult] = useState<string>("");
     const userId = useAppSelector(state => state.user.user!.id);
+
+    const { fetching: createRecipe, isLoading, error } = useFetch(async () => {
+        const formData = createFormData(form, userId);
+        const result = await CreateRecipeService.create(formData);
+        setResult(result.message);
+        setForm(initialFormState);
+    });
 
     const handleSubmitForm: SubmitEventHandler = async (e) => {
         e.preventDefault();
@@ -23,27 +29,13 @@ function CreateRecipeForm() {
         const validity = validateCreateRecipeForm(form);
 
         if (!validity[1]) {
-            setError(validity[0]);
+            setValidationError(validity[0]);
             return;
         }
 
-        setError(null);
-        setIsCreating(true);
+        setValidationError(null);
 
-        try {
-            const formData = createFormData(form, userId);
-            const result = await CreateRecipeService.create(formData);
-            setResult(result.message);
-            setForm(initialFormState);
-        }
-        catch (e) {
-            if (e instanceof Error) {
-                setError(e.message);
-            }
-        }
-        finally {
-            setIsCreating(false);
-        }
+        createRecipe();
     }
 
     return (
@@ -65,8 +57,8 @@ function CreateRecipeForm() {
             />
             <FormControls
                 setForm={ setForm }
-                error={ error ? error : "" }
-                isCreating={ isCreating }
+                error={ (error || validationError) ? error ? error.message : validationError! : "" }
+                isCreating={ isLoading }
                 result={ result }
             />
         </form>
