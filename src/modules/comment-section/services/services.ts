@@ -3,13 +3,23 @@ import { BASE_URL } from "../../../shared/constants/constants.ts";
 
 
 interface IRecipeCommentService {
-    getAll(): Promise<RecipeComment[]>;
+    getAll(recipeId: number): Promise<RecipeComment[]>;
     upload(recipeId: number, userId: number, content: string): Promise<{ id: number }>;
 }
 
 class RecipeCommentService implements IRecipeCommentService{
-    async getAll(): Promise<RecipeComment[]> {
+    async getAll(recipeId: number): Promise<RecipeComment[]> {
+        const response = await fetch(`${BASE_URL}/getComments/${recipeId}`);
 
+        if (response.status === 400) {
+            throw new Error(response.statusText);
+        }
+
+        if (!response.ok) {
+            throw new Error("Unknown error");
+        }
+
+        return await response.json();
     }
 
     async upload(recipeId: number, userId: number, content: string): Promise<{ id: number }> {

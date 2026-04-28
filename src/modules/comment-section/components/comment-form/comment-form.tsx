@@ -25,8 +25,9 @@ function CommentForm({ setComments }: CommentFormProps) {
         const data = await RecipeCommentServ.upload(Number(recipeId), user.id, commentToUpload);
         const newComment: RecipeComment = {
             id: data.id,
-            authorId: user.id,
-            authorName: `${ user.first_name } ${ user.last_name }`,
+            user_id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
             content: commentToUpload
         };
 

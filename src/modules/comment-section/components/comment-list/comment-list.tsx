@@ -14,9 +14,9 @@ function CommentList({ comments }: CommentListProps) {
                 comments.map(comment => (
                     <CommentBlock
                         key={ comment.id }
-                        userId={ comment.authorId }
+                        userId={ comment.user_id }
                         content={ comment.content }
-                        authorName={ comment.authorName }
+                        authorName={ comment.first_name + " " + comment.last_name }
                     />
                 ))
             }
