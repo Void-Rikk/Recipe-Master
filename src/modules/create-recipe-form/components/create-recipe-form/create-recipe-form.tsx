@@ -23,7 +23,7 @@ function CreateRecipeForm() {
         setForm(initialFormState);
     });
 
-    const handleSubmitForm: SubmitEventHandler = async (e) => {
+    const handleSubmitForm: SubmitEventHandler = (e) => {
         e.preventDefault();
 
         const validity = validateCreateRecipeForm(form);

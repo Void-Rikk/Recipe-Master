@@ -1,7 +1,7 @@
 import { Heart } from "lucide-react";
 import Button from "../../../../shared/components/button/button.tsx";
 import { type MouseEventHandler, useState } from "react";
-import { useAppSelector, useAuth } from "../../../../shared/hooks/hooks.ts";
+import {useAppSelector, useAuth, useFetch} from "../../../../shared/hooks/hooks.ts";
 import LikeService from "../../services/services.ts";
 
 
@@ -16,32 +16,24 @@ function LikeButton({ recipeId, likes, isLiked }: LikeButtonProps) {
     const userId = useAppSelector(state => state.user.user?.id);
     const [likesAmount, setLikesAmount] = useState<number>(likes);
     const [isLikedState, setIsLikedState] = useState<boolean>(isLiked);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleLike: MouseEventHandler = async (e) => {
+    const { fetching: toggleLike, isLoading } = useFetch(async () => {
+        if (!isAuth || !userId) return;
+
+        const result = await LikeService.like(recipeId, userId, isLikedState);
+        setIsLikedState(result.likeState);
+        if (result.likeState) {
+            setLikesAmount(prev => prev + 1);
+        }
+        else {
+            setLikesAmount(prev => prev - 1);
+        }
+    });
+
+    const handleLike: MouseEventHandler = (e) => {
         e.stopPropagation();
 
-        if (!isAuth || !userId) {
-            return;
-        }
-
-        setIsLoading(true);
-        try {
-            const result = await LikeService.like(recipeId, userId, isLikedState);
-            setIsLikedState(result.likeState);
-            if (result.likeState) {
-                setLikesAmount(prev => prev + 1);
-            }
-            else {
-                setLikesAmount(prev => prev - 1);
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-        finally {
-            setIsLoading(false);
-        }
+        toggleLike();
     }
 
     return (
