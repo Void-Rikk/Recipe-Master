@@ -13,7 +13,6 @@ interface RecipeLikesProps {
 
 function RecipeLikes({ likesCount }: RecipeLikesProps) {
     const [isLiked, setIsLiked] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [likesAmount, setLikesAmount] = useState<number>(likesCount);
 
     const { recipeId } = useParams();
@@ -27,32 +26,27 @@ function RecipeLikes({ likesCount }: RecipeLikesProps) {
         setIsLiked(result.state);
     });
 
-    useEffect(() => {
-        fetchLikeState();
-    }, []);
-
-    const toggleLike = async () => {
+    const { fetching: toggleLike, isLoading } = useFetch(async () => {
         if (!userId || !isAuth || !recipeId) {
             return;
         }
 
-        setIsLoading(true);
-        try {
-            const result = await LikeService.like(Number(recipeId), userId, isLiked);
-            setIsLiked(result.likeState);
-            if (result.likeState) {
-                setLikesAmount(prev => prev + 1);
-            }
-            else {
-                setLikesAmount(prev => prev - 1);
-            }
+        const result = await LikeService.like(Number(recipeId), userId, isLiked);
+        setIsLiked(result.likeState);
+        if (result.likeState) {
+            setLikesAmount(prev => prev + 1);
         }
-        catch (e) {
-            console.error(e);
+        else {
+            setLikesAmount(prev => prev - 1);
         }
-        finally {
-            setIsLoading(false);
-        }
+    });
+
+    useEffect(() => {
+        fetchLikeState();
+    }, []);
+
+    const handleLike = () => {
+        toggleLike();
     }
 
     return (
@@ -60,7 +54,7 @@ function RecipeLikes({ likesCount }: RecipeLikesProps) {
             className="p-0 bg-transparent text-black hover:bg-transparent
                    self-start flex items-center gap-2
                    hover:cursor-pointer active:scale-110 transition-[all_ease-in_0.1s]"
-            onClick={ toggleLike }
+            onClick={ handleLike }
             disabled={ isLoading || isLoadingState }
         >
             <Heart
