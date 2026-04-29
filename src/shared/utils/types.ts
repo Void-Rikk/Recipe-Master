@@ -18,4 +18,9 @@ type Recipe = {
     image_extension: string,
 } & Omit<User, "id">
 
+export type RecipesWithLikesResponse = {
+    recipes: Recipe[],
+    likes: Record<string, boolean>
+}
+
 export { type User, type Recipe};

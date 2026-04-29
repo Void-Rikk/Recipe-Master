@@ -2,9 +2,8 @@ import { useParams } from "react-router";
 import UserAvatar from "../user-avatar/user-avatar.tsx";
 import UserDescription from "../user-description/user-description.tsx";
 import { useFetch } from "../../../../shared/hooks/hooks.ts";
-import UserService from "../../services/services.ts";
+import UserService, {type UserWithRecipeCount} from "../../services/services.ts";
 import { useEffect, useState } from "react";
-import type { User } from "../../../../shared/utils/types.ts";
 import Loader from "../../../../shared/components/loader/loader.tsx";
 import UserPlaceHolder from "../../../../../Sample_User_Icon.png";
 
@@ -12,7 +11,7 @@ import UserPlaceHolder from "../../../../../Sample_User_Icon.png";
 function UserCard() {
     const { userId } = useParams<{ userId: string }>();
 
-    const [userData, setUserData] = useState<User | null>(null);
+    const [userData, setUserData] = useState<UserWithRecipeCount | null>(null);
 
     const { fetching: fetchUserInfo, isLoading, error } = useFetch(async () => {
         if (!userId) return;
@@ -49,7 +48,7 @@ function UserCard() {
                         userId={ userId }
                         username={ userData.first_name + " " + userData.last_name }
                         userDescription={ userData.bio || "" }
-                        recipesAmount={ 12 }
+                        recipesAmount={ userData.recipes_count }
                     />
                 </>
             }

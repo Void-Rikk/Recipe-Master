@@ -1,11 +1,6 @@
 import { BASE_URL } from "../constants/constants.ts";
-import type { Recipe } from "../utils/types.ts";
+import type { Recipe, RecipesWithLikesResponse } from "../utils/types.ts";
 
-
-type RecipesWithLikesResponse = {
-    recipes: Recipe[],
-    likes: Record<string, boolean>
-}
 
 interface IRecipesService {
     getAll(): Promise<Recipe[]>;
