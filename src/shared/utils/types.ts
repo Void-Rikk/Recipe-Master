@@ -4,6 +4,8 @@ type User = {
     first_name: string,
     last_name: string,
     bio?: string,
+    avatar_id?: string,
+    avatar_extension?: string,
 }
 
 type Recipe = {
