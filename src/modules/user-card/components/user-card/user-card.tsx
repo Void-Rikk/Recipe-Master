@@ -2,10 +2,11 @@ import { useParams } from "react-router";
 import UserAvatar from "../user-avatar/user-avatar.tsx";
 import UserDescription from "../user-description/user-description.tsx";
 import { useFetch } from "../../../../shared/hooks/hooks.ts";
-import UserService, {type UserWithRecipeCount} from "../../services/services.ts";
+import UserService, { type UserWithRecipeCount } from "../../services/services.ts";
 import { useEffect, useState } from "react";
 import Loader from "../../../../shared/components/loader/loader.tsx";
 import UserPlaceHolder from "../../../../../Sample_User_Icon.png";
+import { BASE_URL } from "../../../../shared/constants/constants.ts";
 
 
 function UserCard() {
@@ -17,6 +18,7 @@ function UserCard() {
         if (!userId) return;
 
         const userInfo = await UserService.getUserInfo(Number(userId));
+        console.log(userInfo);
         setUserData(userInfo);
     });
 
@@ -40,7 +42,7 @@ function UserCard() {
                 <>
                     <UserAvatar
                         src={ (userData.avatar_id && userData.avatar_extension)
-                            ? userData.avatar_id + userData.avatar_extension
+                            ? `${BASE_URL}/user-avatars/${userData.avatar_id}${userData.avatar_extension}`
                             : UserPlaceHolder }
                         alt={ userData.first_name + " " + userData.last_name }
                     />
