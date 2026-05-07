@@ -18,7 +18,7 @@ class UserService implements IUserService {
             throw new Error(response.statusText);
         }
 
-        return await response.json();
+        return response.json();
     }
 }
 

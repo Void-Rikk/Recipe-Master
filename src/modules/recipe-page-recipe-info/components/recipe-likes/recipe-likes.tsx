@@ -31,14 +31,14 @@ function RecipeLikes({ likesCount }: RecipeLikesProps) {
             return;
         }
 
-        const result = await LikeService.like(Number(recipeId), userId, isLiked);
-        setIsLiked(result.likeState);
-        if (result.likeState) {
+        await LikeService.like(Number(recipeId), userId, isLiked);
+        if (!isLiked) {
             setLikesAmount(prev => prev + 1);
         }
         else {
             setLikesAmount(prev => prev - 1);
         }
+        setIsLiked(prevState => !prevState);
     });
 
     useEffect(() => {

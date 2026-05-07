@@ -11,7 +11,7 @@ interface IEditProfileService {
 class EditProfileService implements IEditProfileService {
 
     async editProfile(userId: number, formData: FormData): Promise<EditResponse> {
-        const response = await fetch(`${BASE_URL}/updateUser/${userId}`, {
+        const response = await fetch(`${BASE_URL}/user/${userId}`, {
             method: "PATCH",
             body: formData
         });

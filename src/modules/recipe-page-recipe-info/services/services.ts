@@ -15,21 +15,13 @@ interface IExactRecipeService {
 class ExactRecipeService implements IExactRecipeService {
 
     async getRecipeById(recipeId: number): Promise<ExactRecipeResponse> {
-        const response = await fetch(`${BASE_URL}/getRecipe/${recipeId}`);
-
-        if (response.status === 400) {
-            throw new Error(response.statusText);
-        }
-
-        if (response.status === 404) {
-            throw new Error(response.statusText);
-        }
+        const response = await fetch(`${BASE_URL}/recipes/${recipeId}`);
 
         if (!response.ok) {
-            throw new Error("Unknown error");
+            throw new Error(response.statusText);
         }
 
-        return await response.json();
+        return response.json();
     }
 }
 
@@ -43,9 +35,9 @@ interface IExactLikeStateService {
 
 class ExactLikeStateService implements IExactLikeStateService {
     async getExactLikeState(recipeId: number, userId: number): Promise<ExactLikeStateResponse> {
-        const response = await fetch(`${BASE_URL}/getLikeState/${userId}/${recipeId}`);
+        const response = await fetch(`${BASE_URL}/like/${userId}/${recipeId}`);
 
-        return await response.json();
+        return response.json();
     }
 }
 

@@ -11,7 +11,7 @@ interface ICreateRecipeService {
 
 class CreateRecipeService implements ICreateRecipeService{
     async create(formData: FormData): Promise<CreateRecipeResponseStatus> {
-        const response = await fetch(`${BASE_URL}/createRecipe`, {
+        const response = await fetch(`${BASE_URL}/recipes/create`, {
             method: "POST",
             body: formData
         });

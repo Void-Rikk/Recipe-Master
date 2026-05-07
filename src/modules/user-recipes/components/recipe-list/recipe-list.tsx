@@ -1,48 +1,17 @@
 import { RecipeCard } from "../../../recipe-card";
 import type { Recipe } from "../../../../shared/utils/types.ts";
-import { useEffect, useState } from "react";
-import { useFetch } from "../../../../shared/hooks/hooks.ts";
-import UserRecipesService from "../../services/services.ts";
-import Loader from "../../../../shared/components/loader/loader.tsx";
 
 
 interface RecipeListProps {
-    userId: number;
-    currentUserId?: number;
     recipesState: "my" | "liked";
+    recipes: Recipe[];
+    likesMap: Record<string, boolean>;
 }
 
-function RecipeList({ userId, currentUserId, recipesState="my" }: RecipeListProps) {
-    const [recipes, setRecipes] = useState<Recipe[]>([]);
-    const [likesMap, setLikesMap] = useState<Record<string, boolean>>({});
-
-    const { fetching: fetchRecipes, isLoading, error } = useFetch(async () => {
-        if (!userId) return;
-
-        let result;
-        if (currentUserId && recipesState === "my") {
-            result = await UserRecipesService.getRecipesByUserIdWithLikes(userId, currentUserId);
-            setRecipes(result.recipes);
-            setLikesMap(result.likes);
-        }
-        else if (currentUserId === userId && recipesState === "liked") {
-            result = await UserRecipesService.getRecipesLikedByUser(userId);
-            setRecipes(result);
-        }
-        else {
-            result = await UserRecipesService.getRecipesByUserId(userId);
-            setRecipes(result);
-        }
-    });
-
-    useEffect(() => {
-        fetchRecipes();
-    }, [recipesState]);
+function RecipeList({ recipes, likesMap, recipesState="my" }: RecipeListProps) {
 
     return (
         <div className="flex flex-wrap justify-center gap-4">
-            { isLoading && <Loader /> }
-            { error && <span className="text-red-500">{ error.message }</span> }
             {
                 recipes.map(recipe => (
                     <RecipeCard

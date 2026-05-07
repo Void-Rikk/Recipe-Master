@@ -11,26 +11,18 @@ interface ILikeService {
     like(recipeId: number, userId: number, likeState: boolean): Promise<LikeResponse>;
 }
 
-class LikeService implements ILikeService{
+class LikeService implements ILikeService {
 
     async like(recipeId: number, userId: number, likeState: boolean): Promise<LikeResponse> {
-        const response = await fetch(`${BASE_URL}/toggleLike`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                recipeId,
-                userId,
-                likeState
-            }),
+        const response = await fetch(`${BASE_URL}/like/${userId}/${recipeId}`, {
+            method: likeState ? "DELETE" : "POST"
         });
 
         if (!response.ok) {
-            throw new Error("HTTP Error");
+            throw new Error(response.statusText);
         }
 
-        return await response.json();
+        return response.json();
     }
 }
 

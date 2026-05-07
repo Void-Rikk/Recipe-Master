@@ -20,14 +20,14 @@ function LikeButton({ recipeId, likes, isLiked }: LikeButtonProps) {
     const { fetching: toggleLike, isLoading } = useFetch(async () => {
         if (!isAuth || !userId) return;
 
-        const result = await LikeService.like(recipeId, userId, isLikedState);
-        setIsLikedState(result.likeState);
-        if (result.likeState) {
+        await LikeService.like(recipeId, userId, isLikedState);
+        if (!isLikedState) {
             setLikesAmount(prev => prev + 1);
         }
         else {
             setLikesAmount(prev => prev - 1);
         }
+        setIsLikedState(prevState => !prevState);
     });
 
     const handleLike: MouseEventHandler = (e) => {

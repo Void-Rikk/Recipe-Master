@@ -16,16 +16,9 @@ function HomePage() {
     const [likesMap, setLikesMap] = useState<Record<string, boolean>>({});
 
     const { fetching: fetchRecipes, isLoading, error } = useFetch(async () => {
-        if (isAuth) {
-            const data = await RecipesService.getAllWithLikes(userId!);
-            setRecipes(data.recipes);
-            setLikesMap(data.likes);
-        }
-        else {
-            const data = await RecipesService.getAll();
-            setRecipes(data);
-            setLikesMap({});
-        }
+        const data = await RecipesService.getAll(userId);
+        setRecipes(data.recipes);
+        setLikesMap(data.likes);
     });
 
     useEffect(() => {

@@ -6,7 +6,6 @@ interface UserAvatarProps {
 }
 
 function UserAvatar({ src, alt }: UserAvatarProps) {
-    console.log(src);
 
     return (
         <div className="flex justify-center items-center self-start

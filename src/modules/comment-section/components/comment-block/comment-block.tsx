@@ -11,7 +11,7 @@ interface CommentBlockProps {
 function CommentBlock({ userId, content, authorName }: CommentBlockProps) {
 
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 mb-4">
             <CircleUserRound />
             <p
                 className="flex flex-col border rounded-xl border-gray-300 max-w-[90%]

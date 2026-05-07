@@ -9,7 +9,7 @@ interface IRecipeCommentService {
 
 class RecipeCommentService implements IRecipeCommentService{
     async getAll(recipeId: number): Promise<RecipeComment[]> {
-        const response = await fetch(`${BASE_URL}/getComments/${recipeId}`);
+        const response = await fetch(`${BASE_URL}/comments/${recipeId}`);
 
         if (response.status === 400) {
             throw new Error(response.statusText);
@@ -19,11 +19,11 @@ class RecipeCommentService implements IRecipeCommentService{
             throw new Error("Unknown error");
         }
 
-        return await response.json();
+        return response.json();
     }
 
     async upload(recipeId: number, userId: number, content: string): Promise<{ id: number }> {
-        const response = await fetch(`${BASE_URL}/uploadComment/${recipeId}`, {
+        const response = await fetch(`${BASE_URL}/comments/${recipeId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,15 +34,11 @@ class RecipeCommentService implements IRecipeCommentService{
             }),
         });
 
-        if (response.status === 400) {
+        if (!response.ok) {
             throw new Error(response.statusText);
         }
 
-        if (!response.ok) {
-            throw new Error("Unknown error");
-        }
-
-        return await response.json();
+        return response.json();
     }
 }
 

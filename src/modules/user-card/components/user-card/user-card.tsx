@@ -1,4 +1,3 @@
-import { useParams } from "react-router";
 import UserAvatar from "../user-avatar/user-avatar.tsx";
 import UserDescription from "../user-description/user-description.tsx";
 import { useFetch } from "../../../../shared/hooks/hooks.ts";
@@ -9,25 +8,26 @@ import UserPlaceHolder from "../../../../../Sample_User_Icon.png";
 import { BASE_URL } from "../../../../shared/constants/constants.ts";
 
 
-function UserCard() {
-    const { userId } = useParams<{ userId: string }>();
+interface UserCardProps {
+    userId: string;
+}
 
+function UserCard({ userId }: UserCardProps) {
     const [userData, setUserData] = useState<UserWithRecipeCount | null>(null);
 
     const { fetching: fetchUserInfo, isLoading, error } = useFetch(async () => {
         if (!userId) return;
 
         const userInfo = await UserService.getUserInfo(Number(userId));
-        console.log(userInfo);
         setUserData(userInfo);
     });
 
     useEffect(() => {
         fetchUserInfo();
-    }, []);
+    }, [userId]);
 
     if (isLoading) {
-        return <Loader />
+        return <Loader />;
     }
 
     return (

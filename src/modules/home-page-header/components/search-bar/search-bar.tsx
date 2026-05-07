@@ -18,17 +18,10 @@ function SearchBar({ setRecipes, userId, setLikesMap }: SearchBarProps) {
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const handleSearch = debounce<SearchHandler>(async (searchQuery: string) => {
         setIsSearching(true);
-        if (!userId) {
-            const recipes = await RecipesService.searchRecipes(searchQuery);
-            setRecipes(recipes);
-            setIsSearching(false);
-        }
-        else {
-            const data = await RecipesService.searchRecipesWithLikes(searchQuery, userId);
-            setRecipes(data.recipes);
-            setLikesMap(data.likes);
-            setIsSearching(false);
-        }
+        const data = await RecipesService.searchRecipes(userId, searchQuery);
+        setRecipes(data.recipes);
+        setLikesMap(data.likes);
+        setIsSearching(false);
     }, 1000);
 
     return (

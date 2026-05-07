@@ -1,66 +1,42 @@
 import { BASE_URL } from "../constants/constants.ts";
-import type { Recipe, RecipesWithLikesResponse } from "../utils/types.ts";
+import type { RecipesWithLikesResponse } from "../utils/types.ts";
 
 
 interface IRecipesService {
-    getAll(): Promise<Recipe[]>;
-    getAllWithLikes(userId: number): Promise<RecipesWithLikesResponse>;
-    searchRecipes(searchQuery: string): Promise<Recipe[]>;
-    searchRecipesWithLikes(searchQuery: string, userId: number): Promise<RecipesWithLikesResponse>;
+    getAll(userId: number | undefined): Promise<RecipesWithLikesResponse>;
+    searchRecipes(userId: number | undefined, searchQuery: string): Promise<RecipesWithLikesResponse>;
 }
 
 class Services implements IRecipesService {
 
-    async getAll(): Promise<Recipe[]> {
-        const response = await fetch(`${BASE_URL}/getRecipes`);
+    async getAll(userId: number | undefined): Promise<RecipesWithLikesResponse> {
+        const queryParams = userId ? "?userId=" + userId : "";
+        const response = await fetch(`${BASE_URL}/recipes${queryParams}`);
 
         if (!response.ok) {
-            throw new Error("HTTP Error");
+            throw new Error(response.statusText);
         }
 
-        return await response.json();
+        return response.json();
     }
 
-    async getAllWithLikes(userId: number): Promise<RecipesWithLikesResponse> {
-        const response = await fetch(`${BASE_URL}/getRecipes/${userId}`);
-
-        if (!response.ok) {
-            throw new Error("HTTP Error");
-        }
-
-        return await response.json();
-    }
-
-    async searchRecipes(searchQuery: string): Promise<Recipe[]> {
-        const response = await fetch(`${BASE_URL}/searchRecipes`, {
+    async searchRecipes(userId: number | undefined, searchQuery: string): Promise<RecipesWithLikesResponse> {
+        const response = await fetch(`${BASE_URL}/recipes/search`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ searchQuery }),
+            body: JSON.stringify({
+                userId,
+                searchQuery
+            }),
         });
 
         if (!response.ok) {
-            throw new Error("HTTP Error");
+            throw new Error(response.statusText);
         }
 
-        return await response.json();
-    }
-
-    async searchRecipesWithLikes(searchQuery: string, userId: number): Promise<RecipesWithLikesResponse> {
-        const response = await fetch(`${BASE_URL}/searchRecipes/${userId}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ searchQuery }),
-        })
-
-        if (!response.ok) {
-            throw new Error("HTTP Error");
-        }
-
-        return await response.json();
+        return response.json();
     }
 }
 
