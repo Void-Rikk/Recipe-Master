@@ -3,13 +3,13 @@ import { BASE_URL } from "../../../shared/constants/constants.ts";
 
 
 interface IUserRecipesService {
-    getRecipesByUserId(userId: number, currentUserId: number): Promise<RecipesWithLikesResponse>;
+    getRecipesByUserId(userId: number, currentUserId: number | undefined): Promise<RecipesWithLikesResponse>;
     getRecipesLikedByUser(userId: number): Promise<Recipe[]>;
 }
 
 class UserRecipesService implements IUserRecipesService {
 
-    async getRecipesByUserId(userId: number, currentUserId: number): Promise<RecipesWithLikesResponse> {
+    async getRecipesByUserId(userId: number, currentUserId: number | undefined): Promise<RecipesWithLikesResponse> {
         const queryParams = currentUserId ? "?currentUserId=" + currentUserId : "";
         const response = await fetch(`${BASE_URL}/recipes/user/${userId}${queryParams}`);
 
