@@ -52,7 +52,7 @@ function CommentForm({ setComments }: CommentFormProps) {
         >
             <div className="flex items-center gap-4 pl-[5%]">
                 <TextArea
-                    placeholder="Write a comment"
+                    placeholder="Написать комментарий"
                     className="p-2 rounded-xl text-white bg-gray-900
                     shadow shadow-gray-600
                     resize-none grow-1 placeholder:text-gray-300"
@@ -66,7 +66,7 @@ function CommentForm({ setComments }: CommentFormProps) {
                 hover:translate-y-[-2px] hover:shadow-md"
                     disabled={ isLoading || !isAuth }
                 >
-                    { isLoading ? <Loader /> : "Send" }
+                    { isLoading ? <Loader /> : "Отправить" }
                 </Button>
             </div>
             <span

@@ -17,7 +17,7 @@ function RecipePage() {
                 className="flex items-center gap-1"
             >
                 <ChevronLeft />
-                <span>Home</span>
+                <span>На главную</span>
             </Link>
             <RecipeInfo />
             <CommentSection />

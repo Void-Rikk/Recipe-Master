@@ -9,8 +9,8 @@ function RecipeInstructions({ instructions }: RecipeInstructionsProps) {
 
     return (
         <section className="flex flex-col gap-1">
-            <h3 className="text-xl">Instructions</h3>
-            <ol className="list-decimal list-inside">
+            <h3 className="text-xl">Шаги приготовления</h3>
+            <ol className="list-decimal list-inside flex flex-col gap-4">
                 {
                     instructions.map(instruction => (
                         <li

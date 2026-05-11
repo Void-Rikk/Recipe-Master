@@ -10,7 +10,7 @@ function RecipeIngredients({ ingredients } :RecipeIngredientsProps) {
     return (
         <section className="flex flex-col gap-1">
             <h3 className="text-xl">
-                Ingredients
+                Ингредиенты
             </h3>
             <ul className="list-disc list-inside">
                 {

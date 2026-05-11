@@ -36,7 +36,7 @@ export function createFormData(form: CreateRecipeFormType, userId: number): Form
     formData.append("description", form.description);
     formData.append("image", form.image);
     formData.append("ingredients", JSON.stringify(form.ingredients));
-    formData.append("instructions", JSON.stringify(form.ingredients));
+    formData.append("instructions", JSON.stringify(form.instructions));
     formData.append("user_id", `${userId}`);
 
     return formData;
