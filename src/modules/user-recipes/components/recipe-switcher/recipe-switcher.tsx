@@ -16,7 +16,7 @@ function RecipeSwitcher({ recipesState, setRecipesState }: RecipeSwitcherProps) 
                     + (recipesState === "my" ? " bg-white hover:bg-white shadow shadow-gray-400" : " bg-transparent cursor-pointer") }
                 onClick={ () => switchRecipesState(recipesState, setRecipesState, "my") }
             >
-                My Recipes
+                Мои рецепты
             </Button>
 
             <Button
@@ -24,7 +24,7 @@ function RecipeSwitcher({ recipesState, setRecipesState }: RecipeSwitcherProps) 
                     + (recipesState === "liked" ? " bg-white hover:bg-white shadow shadow-gray-400" : " bg-transparent cursor-pointer") }
                 onClick={ () => switchRecipesState(recipesState, setRecipesState, "liked") }
             >
-                Liked
+                Понравившиеся
             </Button>
         </div>
     );

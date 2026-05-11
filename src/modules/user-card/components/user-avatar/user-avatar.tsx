@@ -13,7 +13,7 @@ function UserAvatar({ src, alt }: UserAvatarProps) {
         bg-gray-100"
         >
             <img
-                className="w-[80%]"
+                className="w-full aspect-square rounded-full"
                 src={ src }
                 alt={ alt }
             />
