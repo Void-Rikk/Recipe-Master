@@ -11,7 +11,7 @@ function Panel() {
     return (
         <div
             className="flex flex-col gap-4
-             shadow-lg shadow-gray-200 rounded-lg
+             shadow-lg shadow-gray-200 rounded-lg h-fit
              p-4 mt-[10%] min-w-[40%] border-[1px] border-gray-300
              max-md:w-full max-md:rounded-none max-md:shadow-none max-md:border-none"
         >

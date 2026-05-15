@@ -26,7 +26,7 @@ function SearchBar({ setRecipes, userId, setLikesMap }: SearchBarProps) {
 
     return (
         <form
-            className="flex items-center gap-6 min-w-[50%]
+            className="flex items-center gap-6 min-w-[35vw]
             max-md:w-[100%]"
         >
             <div

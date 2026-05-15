@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import {  createHashRouter } from "react-router";
 import HomePage from "./pages/home-page/home-page.tsx";
 import AuthPage from "./pages/auth-page/auth-page.tsx";
 import RecipePage from "./pages/recipe-page/recipe-page.tsx";
@@ -7,7 +7,7 @@ import UserPage from "./pages/user-page/user-page.tsx";
 import EditProfilePage from "./pages/edit-profile-page/edit-profile-page.tsx";
 
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
     {
         path: "/",
         element: <HomePage />

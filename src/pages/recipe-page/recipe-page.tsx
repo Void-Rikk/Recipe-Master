@@ -10,7 +10,8 @@ function RecipePage() {
         <div
             className="flex flex-col gap-4 w-[60%] rounded-md
             mt-2 mb-2 p-4 shadow-[1px_1px_5px_1px] shadow-gray-300 relative
-            max-md:w-full max-md:mt-0 max-md:rounded-none max-md:shadow-none"
+            max-md:w-full max-md:mt-0 max-md:rounded-none max-md:shadow-none
+            max-lg:w-full max-lg:mt-0"
         >
             <Link
                 to="/"

@@ -26,12 +26,15 @@ function HomePage() {
     }, [isAuth]);
 
     return (
-        <div className="relative flex flex-col items-center gap-8 p-2">
+        <div className="relative flex flex-col items-center gap-8 p-2 w-full">
             <Header />
-            <main className="flex flex-col items-center gap-4 w-[80%] max-md:w-[95%]"
-            >
-                <SearchBar setRecipes={ setRecipes } userId={ userId } setLikesMap={ setLikesMap } />
-                <section className="flex flex-wrap gap-4">
+            <main className="flex flex-col items-center gap-4 w-full max-md:w-[95%] min-h-fit">
+                <SearchBar
+                    setRecipes={ setRecipes }
+                    userId={ userId }
+                    setLikesMap={ setLikesMap }
+                />
+                <section className={ `flex flex-wrap gap-4 w-[80%] max-md:w-full h-fit ${isLoading && "justify-center"}` }>
                     { isLoading && <Loader className="border-10 w-30 h-30 mt-10" /> }
                     { error && <h2 className="text-xl text-red-500 pt-10">{ error.message }</h2> }
                     { recipes.map(recipe => (

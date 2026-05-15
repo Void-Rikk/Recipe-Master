@@ -31,10 +31,11 @@ function UserCard({ userId }: UserCardProps) {
     }
 
     return (
-        <section className="flex gap-8 p-6 w-[50%]
+        <section className="flex gap-8 p-6 w-[50vw]
         border border-gray-300 rounded-xl
         shadow-md shadow-gray-300
-        max-md:w-full max-md:rounded-none"
+        max-md:w-full max-md:rounded-none
+        max-lg:w-[80vw]"
         >
             { error && <span className="text-red-500">{ error.message }</span> }
             {

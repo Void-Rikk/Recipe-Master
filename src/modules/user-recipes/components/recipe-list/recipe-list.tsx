@@ -11,7 +11,7 @@ interface RecipeListProps {
 function RecipeList({ recipes, likesMap, recipesState="my" }: RecipeListProps) {
 
     return (
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4 w-full">
             {
                 recipes.map(recipe => (
                     <RecipeCard

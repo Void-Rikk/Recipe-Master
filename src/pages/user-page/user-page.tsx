@@ -11,7 +11,7 @@ function UserPage() {
     }
 
     return (
-        <div className="flex flex-col items-center gap-4 p-4
+        <div className="flex flex-col items-center gap-4 p-4 w-full
         max-md:p-0"
         >
             <UserCard
