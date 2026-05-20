@@ -1,6 +1,7 @@
 import { UserCard } from "../../modules/user-card";
 import { UserRecipes } from "../../modules/user-recipes";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
+import { MoveLeft } from "lucide-react";
 
 
 function UserPage() {
@@ -11,9 +12,16 @@ function UserPage() {
     }
 
     return (
-        <div className="flex flex-col items-center gap-4 p-4 w-full
+        <div className="flex flex-col items-center gap-4 p-2 w-full
         max-md:p-0"
         >
+            <Link
+                to="/"
+                className="flex gap-2 self-start pt-2 pl-2 hover:cursor-pointer"
+            >
+                <MoveLeft />
+                На главную
+            </Link>
             <UserCard
                 userId={ userId }
             />
