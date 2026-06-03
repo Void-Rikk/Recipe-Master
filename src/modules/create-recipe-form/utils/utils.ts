@@ -25,7 +25,7 @@ export function validateCreateRecipeForm(form: CreateRecipeFormType): [string, b
     return ["", true];
 }
 
-export function createFormData(form: CreateRecipeFormType, userId: number): FormData {
+export function createFormData(form: CreateRecipeFormType, userId?: number): FormData {
     const formData = new FormData();
 
     if (!form.image) {

@@ -14,7 +14,7 @@ function CreateRecipeForm() {
     const [form, setForm] = useCreateRecipeForm();
     const [validationError, setValidationError] = useState<string | null>(null);
     const [result, setResult] = useState<string>("");
-    const userId = useAppSelector(state => state.user.user!.id);
+    const userId = useAppSelector(state => state.user.user?.id);
 
     const { fetching: createRecipe, isLoading, error } = useFetch(async () => {
         const formData = createFormData(form, userId);
