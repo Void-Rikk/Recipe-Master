@@ -14,3 +14,23 @@ export function debounce<T extends (...args: never[]) => void>(
         }, delay);
     };
 }
+
+export function getTotalPortions(totalAmount: number, portionAmount: number) {
+    return Math.ceil(totalAmount / portionAmount);
+}
+
+export function getPortionAmount() {
+    const isMobile = matchMedia("(width <= 768px)");
+
+    return isMobile.matches ? 3 : 12;
+}
+
+export function constructQueryParams(entries: Record<string, string | number>) {
+    let result = "";
+
+    for (const key in entries) {
+        result += encodeURIComponent(key) + "=" + encodeURIComponent(entries[key]) + "&";
+    }
+
+    return result ? "?" + result.substring(0, result.length - 1) : "";
+}

@@ -1,23 +1,26 @@
 import { BASE_URL } from "../constants/constants.ts";
 import type { RecipesWithLikesResponse } from "../utils/types.ts";
+import { constructQueryParams } from "../utils/utils.ts";
 
 
 interface IRecipesService {
-    getAll(userId: number | undefined): Promise<RecipesWithLikesResponse>;
+    getAll(userId: number | undefined, limit: number, portion: number): Promise<[RecipesWithLikesResponse, number]>;
     searchRecipes(userId: number | undefined, searchQuery: string): Promise<RecipesWithLikesResponse>;
 }
 
 class Services implements IRecipesService {
 
-    async getAll(userId: number | undefined): Promise<RecipesWithLikesResponse> {
-        const queryParams = userId ? "?userId=" + userId : "";
+    async getAll(userId: number | undefined, limit: number, portion: number): Promise<[RecipesWithLikesResponse, number]> {
+        const queryParams = constructQueryParams({ ...(userId ? { userId } : {}), limit, portion });
         const response = await fetch(`${BASE_URL}/recipes${queryParams}`);
 
         if (!response.ok) {
             throw new Error(response.statusText);
         }
 
-        return response.json();
+        const totalRecipes = response.headers.get("x-total-recipes");
+
+        return [await response.json(),  totalRecipes ? +totalRecipes : 0] as const;
     }
 
     async searchRecipes(userId: number | undefined, searchQuery: string): Promise<RecipesWithLikesResponse> {

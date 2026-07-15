@@ -28,7 +28,7 @@ function RecipeCard({ recipeID, imageId, image_extension, recipeName, authorId, 
             <img
                 src={ `${BASE_URL}/recipe-images/${imageId}${image_extension}` }
                 alt={ recipeName }
-                className="w-[100%] h-[100] rounded-md"
+                className="w-[100%] max-h-[100] rounded-md aspect-video"
             />
             <div className="flex flex-col gap-2 self-start">
                 <RecipeDescription
