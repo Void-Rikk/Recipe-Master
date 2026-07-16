@@ -4,10 +4,10 @@ import SearchBar from "../../modules/home-page-header/components/search-bar/sear
 import { ChevronUp } from "lucide-react";
 import { useAppSelector, useAuth, useFetch, useInfiniteScroll } from "../../shared/hooks/hooks.ts";
 import RecipesService from "../../shared/services/services.ts";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Recipe } from "../../shared/utils/types.ts";
 import Loader from "../../shared/components/loader/loader.tsx";
-import { getPortionAmount, getTotalPortions } from "../../shared/utils/utils.ts";
+import { debounce, getPortionAmount, getTotalPortions } from "../../shared/utils/utils.ts";
 
 
 function HomePage() {
@@ -19,19 +19,56 @@ function HomePage() {
     const [portionAmount] = useState<number>(getPortionAmount());
     const [portion, setPortion] = useState<number>(1);
     const infiniteScrollElement = useRef<HTMLDivElement>(null);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [isSearching, setIsSearching] = useState<boolean>(false);
+    const [searchError, setSearchError] = useState<Error | null>(null);
+    const prevSearchQueryRef = useRef<string>("");
 
-    const { fetching: fetchRecipes, isLoading, error } = useFetch(async () => {
+    const { fetching: fetchRecipes, isLoading, error } = useFetch(async (isExtending) => {
         const [data, totalRecipes] = await RecipesService.getAll(userId, portionAmount, portion);
         setTotalPortions(getTotalPortions(totalRecipes, portionAmount));
-        setRecipes(prev => [...prev, ...data.recipes]);
+        setRecipes(prev => isExtending ? [...prev, ...data.recipes] : data.recipes);
         setLikesMap(data.likes);
     });
 
-    useEffect(() => {
-        fetchRecipes();
-    }, [isAuth, portion]);
+    const searchRecipes = useCallback(debounce(async (isExtending, searchQuery) => {
+        setIsSearching(true);
+        setSearchError(null);
+        if (!isExtending) {
+            setPortion(1);
+        }
+        try {
+            const [data, totalRecipes] = await RecipesService.searchRecipes(userId, searchQuery as string, portionAmount, portion);
+            setTotalPortions(getTotalPortions(totalRecipes, portionAmount));
+            setRecipes(prev => isExtending ? [...prev, ...data.recipes] : data.recipes);
+            setLikesMap(data.likes);
+        }
+        catch (e) {
+            if (e instanceof Error) {
+                setSearchError(e);
+            }
+        }
+        finally {
+            setIsSearching(false);
+        }
 
-    useInfiniteScroll(infiniteScrollElement, portion < totalPortions, isLoading, () => {
+        prevSearchQueryRef.current = searchQuery as string;
+    }, 1000), [userId, portionAmount, portion]);
+
+    useEffect(() => {
+        let isExtending: boolean;
+        if (searchQuery) {
+            isExtending = searchQuery === prevSearchQueryRef.current;
+            searchRecipes(isExtending, searchQuery);
+        }
+        else {
+            isExtending = prevSearchQueryRef.current === "";
+            fetchRecipes(isExtending);
+            prevSearchQueryRef.current = "";
+        }
+    }, [isAuth, portion, searchQuery]);
+
+    useInfiniteScroll(infiniteScrollElement, portion < totalPortions, isLoading || isSearching, () => {
         setPortion(prev => prev + 1);
     });
 
@@ -40,11 +77,10 @@ function HomePage() {
             <Header />
             <main className="flex flex-col items-center gap-4 w-full max-md:w-[95%] min-h-fit">
                 <SearchBar
-                    setRecipes={ setRecipes }
-                    userId={ userId }
-                    setLikesMap={ setLikesMap }
+                    setSearchQuery={ setSearchQuery }
+                    isSearching={ isSearching }
                 />
-                <section className={ `flex flex-wrap gap-4 w-[80%] max-md:w-full h-fit ${isLoading && "justify-center"}` }>
+                <section className={ `flex flex-wrap gap-4 w-[80%] max-md:w-full h-fit` }>
                     { recipes.map(recipe => (
                         <RecipeCard
                             key={ recipe.id }
@@ -59,9 +95,9 @@ function HomePage() {
                             isLiked={ likesMap[recipe.id] !== undefined ? true : false }
                         />
                     )) }
-                    { error && <h2 className="text-xl text-red-500 pt-10">{ error.message }</h2> }
-                    { isLoading && <Loader className="border-10 w-30 h-30 mt-10" /> }
+                    { (error || searchError) && <h2 className="w-full text-center text-xl text-red-500 pt-10">{ error?.message || searchError?.message }</h2> }
                 </section>
+                { (isLoading || isSearching) && <Loader className="border-10 w-30 h-30 mt-10" /> }
                 <div ref={ infiniteScrollElement } id="infiniteScrollElement"></div>
             </main>
             <a

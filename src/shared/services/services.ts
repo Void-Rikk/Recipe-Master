@@ -5,7 +5,7 @@ import { constructQueryParams } from "../utils/utils.ts";
 
 interface IRecipesService {
     getAll(userId: number | undefined, limit: number, portion: number): Promise<[RecipesWithLikesResponse, number]>;
-    searchRecipes(userId: number | undefined, searchQuery: string): Promise<RecipesWithLikesResponse>;
+    searchRecipes(userId: number | undefined, searchQuery: string, limit: number, portion: number): Promise<[RecipesWithLikesResponse, number]>;
 }
 
 class Services implements IRecipesService {
@@ -23,8 +23,10 @@ class Services implements IRecipesService {
         return [await response.json(),  totalRecipes ? +totalRecipes : 0] as const;
     }
 
-    async searchRecipes(userId: number | undefined, searchQuery: string): Promise<RecipesWithLikesResponse> {
-        const response = await fetch(`${BASE_URL}/recipes/search`, {
+    async searchRecipes(userId: number | undefined, searchQuery: string, limit: number, portion: number): Promise<[RecipesWithLikesResponse, number]> {
+        const queryParams = constructQueryParams({ limit, portion });
+
+        const response = await fetch(`${BASE_URL}/recipes/search${ queryParams }`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -39,7 +41,9 @@ class Services implements IRecipesService {
             throw new Error(response.statusText);
         }
 
-        return response.json();
+        const totalRecipes = response.headers.get('x-total-recipes');
+
+        return [await response.json(), totalRecipes ? +totalRecipes : 0] as const;
     }
 }
 

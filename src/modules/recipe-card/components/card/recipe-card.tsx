@@ -1,6 +1,7 @@
 import LikeButton from "../like-button/like-button.tsx";
 import RecipeDescription from "../recipe-description/recipe-description.tsx";
 import { BASE_URL } from "../../../../shared/constants/constants.ts";
+import { memo } from "react";
 
 
 interface CardProps {
@@ -15,7 +16,7 @@ interface CardProps {
     image_extension: string;
 }
 
-function RecipeCard({ recipeID, imageId, image_extension, recipeName, authorId, authorFirstName, authorLastName, likes, isLiked }: CardProps) {
+const RecipeCard = memo(({ recipeID, imageId, image_extension, recipeName, authorId, authorFirstName, authorLastName, likes, isLiked }: CardProps) => {
 
     return (
         <div
@@ -48,6 +49,6 @@ function RecipeCard({ recipeID, imageId, image_extension, recipeName, authorId, 
             </p>
         </div>
     );
-}
+});
 
 export default RecipeCard;

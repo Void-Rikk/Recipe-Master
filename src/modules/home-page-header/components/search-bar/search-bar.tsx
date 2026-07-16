@@ -1,28 +1,14 @@
 import Input from "../../../../shared/components/input/input.tsx";
-import { type Dispatch, type SetStateAction, useState } from "react";
-import type { Recipe } from "../../../../shared/utils/types.ts";
-import { debounce } from "../../../../shared/utils/utils.ts";
-import RecipesService from "../../../../shared/services/services.ts";
+import { type Dispatch, type SetStateAction } from "react";
 import { Search } from "lucide-react";
 
 
 interface SearchBarProps {
-    setRecipes: Dispatch<SetStateAction<Recipe[]>>;
-    setLikesMap: Dispatch<SetStateAction<Record<string, boolean>>>
-    userId: number | undefined;
+    setSearchQuery: Dispatch<SetStateAction<string>>;
+    isSearching: boolean
 }
 
-type SearchHandler = (searchQuery: string) => Promise<void>;
-
-function SearchBar({ setRecipes, userId, setLikesMap }: SearchBarProps) {
-    const [isSearching, setIsSearching] = useState<boolean>(false);
-    const handleSearch = debounce<SearchHandler>(async (searchQuery: string) => {
-        setIsSearching(true);
-        const data = await RecipesService.searchRecipes(userId, searchQuery);
-        setRecipes(data.recipes);
-        setLikesMap(data.likes);
-        setIsSearching(false);
-    }, 1000);
+function SearchBar({ setSearchQuery, isSearching }: SearchBarProps) {
 
     return (
         <form
@@ -40,7 +26,7 @@ function SearchBar({ setRecipes, userId, setLikesMap }: SearchBarProps) {
                     className="h-10 w-[90%] grow-1 rounded-2xl text-lg
                     outline-none"
                     placeholder="Поиск по названию"
-                    onChange={ (e) => handleSearch(e.target.value) }
+                    onChange={ (e) => setSearchQuery(e.target.value) }
                 />
                 <Search
                     className={`${ isSearching ? "animate-pulse text-white" : "animate-none text-gray-400" }`}

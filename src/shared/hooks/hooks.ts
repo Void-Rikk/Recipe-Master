@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../stores/store.ts";
 
 
-type CallbackFn = () => Promise<void>;
+type CallbackFn = (...args: unknown[]) => Promise<void>;
 
 export const useFetch = (callback: CallbackFn) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const fetching = async () => {
+    const fetching = async (...args: unknown[]) => {
         try {
             setIsLoading(true);
-            await callback();
+            await callback(...args);
         }
         catch (e) {
             if (e instanceof Error) {
