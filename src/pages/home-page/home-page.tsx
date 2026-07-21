@@ -12,8 +12,6 @@ import { debounce, getPortionAmount, getTotalPortions } from "../../shared/utils
 
 function HomePage() {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
-    const isAuth = useAuth();
-    const userId = useAppSelector(state => state.user.user?.id);
     const [likesMap, setLikesMap] = useState<Record<string, boolean>>({});
     const [totalPortions, setTotalPortions] = useState<number>(0);
     const [portionAmount] = useState<number>(getPortionAmount());
@@ -22,23 +20,39 @@ function HomePage() {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [searchError, setSearchError] = useState<Error | null>(null);
-    const prevSearchQueryRef = useRef<string>("");
+
+    const isAuth = useAuth();
+    const userId = useAppSelector(state => state.user.user?.id);
 
     const { fetching: fetchRecipes, isLoading, error } = useFetch(async (isExtending) => {
-        const [data, totalRecipes] = await RecipesService.getAll(userId, portionAmount, portion);
+
+        let stablePortion = portion;
+
+        if (!isExtending) {
+            stablePortion = 1;
+            setPortion(1);
+        }
+
+        const [data, totalRecipes] = await RecipesService.getAll(userId, portionAmount, stablePortion);
         setTotalPortions(getTotalPortions(totalRecipes, portionAmount));
         setRecipes(prev => isExtending ? [...prev, ...data.recipes] : data.recipes);
         setLikesMap(data.likes);
     });
 
     const searchRecipes = useCallback(debounce(async (isExtending, searchQuery) => {
-        setIsSearching(true);
-        setSearchError(null);
+
+        let stablePortion = portion;
+
         if (!isExtending) {
+            stablePortion = 1;
             setPortion(1);
         }
+
+        setIsSearching(true);
+        setSearchError(null);
+
         try {
-            const [data, totalRecipes] = await RecipesService.searchRecipes(userId, searchQuery as string, portionAmount, portion);
+            const [data, totalRecipes] = await RecipesService.searchRecipes(userId, searchQuery as string, portionAmount, stablePortion);
             setTotalPortions(getTotalPortions(totalRecipes, portionAmount));
             setRecipes(prev => isExtending ? [...prev, ...data.recipes] : data.recipes);
             setLikesMap(data.likes);
@@ -51,22 +65,27 @@ function HomePage() {
         finally {
             setIsSearching(false);
         }
-
-        prevSearchQueryRef.current = searchQuery as string;
     }, 1000), [userId, portionAmount, portion]);
 
     useEffect(() => {
-        let isExtending: boolean;
         if (searchQuery) {
-            isExtending = searchQuery === prevSearchQueryRef.current;
-            searchRecipes(isExtending, searchQuery);
+            searchRecipes(false, searchQuery);
         }
         else {
-            isExtending = prevSearchQueryRef.current === "";
-            fetchRecipes(isExtending);
-            prevSearchQueryRef.current = "";
+            fetchRecipes(false);
         }
-    }, [isAuth, portion, searchQuery]);
+    }, [isAuth, searchQuery]);
+
+    useEffect(() => {
+        if (portion === 1) return;
+
+        if (searchQuery) {
+            searchRecipes(true, searchQuery);
+        }
+        else {
+            fetchRecipes(true);
+        }
+    }, [portion, portionAmount]);
 
     useInfiniteScroll(infiniteScrollElement, portion < totalPortions, isLoading || isSearching, () => {
         setPortion(prev => prev + 1);
