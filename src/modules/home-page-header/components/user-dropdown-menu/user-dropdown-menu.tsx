@@ -37,7 +37,8 @@ function UserDropdownMenu() {
                 className="flex flex-col gap-1
                 transition-all bg-white rounded-md p-2
                 shadow-md shadow-gray-600
-                border border-gray-400"
+                border border-gray-400
+                z-2"
             >
                 <DropdownMenuItem asChild>
                     <Link

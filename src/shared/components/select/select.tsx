@@ -3,7 +3,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
 
-function Select({ placeholder, children, onValueChange, ...props }: RSelect.SelectValueProps & RSelect.SelectProps ) {
+function Select({ placeholder, children, onValueChange, className, ...props }: RSelect.SelectValueProps & RSelect.SelectProps ) {
 
     return (
         <RSelect.Root
@@ -11,7 +11,7 @@ function Select({ placeholder, children, onValueChange, ...props }: RSelect.Sele
             onValueChange={ onValueChange }
         >
             <RSelect.Trigger
-                className='flex h-10 bg-white items-center gap-2 rounded-md shadow-[0_2px_10px] shadow-black/16 px-4 text-sm outline-none'
+                className={twMerge('flex h-10 bg-white items-center gap-2 rounded-md shadow-[0_2px_10px] shadow-black/16 px-4 text-sm outline-none', className)}
             >
                 <RSelect.Value placeholder={ placeholder } />
                 <RSelect.Icon>

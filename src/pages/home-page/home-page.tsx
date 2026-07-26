@@ -96,6 +96,7 @@ function HomePage() {
             <Header />
             <main className="flex flex-col items-center gap-4 w-full max-md:w-[95%] min-h-fit">
                 <SearchBar
+                    searchQuery={ searchQuery }
                     setSearchQuery={ setSearchQuery }
                     isSearching={ isSearching }
                 />
