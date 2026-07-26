@@ -2,16 +2,22 @@ import { CircleUserRound } from "lucide-react";
 import { Link } from "react-router";
 
 
-function RecipeAuthor() {
+interface RecipeAuthorProps {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
+
+function RecipeAuthor({ id, firstName, lastName }: RecipeAuthorProps) {
 
     return (
         <section className="flex items-center gap-2">
             <CircleUserRound className="w-8 h-8"/>
             <Link
-                to="/"
+                to={`/user/${id}`}
                 className="text-lg hover:underline"
             >
-                John Johnson
+                { firstName } { lastName }
             </Link>
         </section>
     );

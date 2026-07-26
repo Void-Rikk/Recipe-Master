@@ -1,26 +1,31 @@
-import {RecipeCard} from "../../../recipe-card";
+import { RecipeCard } from "../../../recipe-card";
+import type { Recipe } from "../../../../shared/utils/types.ts";
 
-const testCard = [
-    {id: "1", name: "Spaghetti", author: {id: "1", firstname: "John", lastname: "Johnson"}, likes: 12, isLiked: false},
-    {id: "2", name: "Burger", author: {id: "2", firstname: "Ken", lastname: "Clash"}, likes: 2, isLiked: true},
-    {id: "3", name: "Pickles", author: {id: "3", firstname: "Alex", lastname: "Melikh"}, likes: 10, isLiked: false},
-    {id: "4", name: "Pizza", author: {id: "4", firstname: "Danil", lastname: "Bratsev"}, likes: 5, isLiked: true},
-    {id: "5", name: "Pasta", author: {id: "5", firstname: "Bruh", lastname: "Bruhov"}, likes: 0, isLiked: false},
-    {id: "6", name: "Cake", author: {id: "6", firstname: "Lian", lastname: "Li"}, likes: 34, isLiked: true}
-];
 
-function RecipeList() {
+interface RecipeListProps {
+    recipesState: "my" | "liked";
+    recipes: Recipe[];
+    likesMap: Record<string, boolean>;
+}
+
+function RecipeList({ recipes, likesMap, recipesState="my" }: RecipeListProps) {
 
     return (
-        <div className="flex flex-wrap justify-center gap-4">
-            {testCard.map(card => (
-                <RecipeCard
-                    recipeID={card.id}
-                    recipeName={card.name}
-                    author={card.author}
-                    likes={card.likes}
-                    isLiked={card.isLiked}
-                />
+        <div className="flex flex-wrap justify-center gap-4 w-full">
+            {
+                recipes.map(recipe => (
+                    <RecipeCard
+                        key={ recipe.id }
+                        recipeID={ recipe.id }
+                        recipeName={ recipe.name }
+                        likes={ recipe.likes_count }
+                        isLiked={ recipesState === "liked" ? true : likesMap[recipe.id] !== undefined ? true : false }
+                        authorId={ recipe.user_id }
+                        authorFirstName={ recipe.first_name }
+                        authorLastName={ recipe.last_name }
+                        imageId={ recipe.image_id }
+                        image_extension={ recipe.image_extension }
+                    />
             ))}
         </div>
     );

@@ -1,7 +1,26 @@
-type Author = {
-    id: string,
-    firstname: string,
-    lastname: string,
+
+type User = {
+    id: number,
+    first_name: string,
+    last_name: string,
+    bio?: string,
+    avatar_id?: string,
+    avatar_extension?: string,
 }
 
-export { type Author };
+type Recipe = {
+    id: number,
+    name: string,
+    description: string,
+    user_id: number,
+    likes_count: number,
+    image_id: string,
+    image_extension: string,
+} & Omit<User, "id">
+
+export type RecipesWithLikesResponse = {
+    recipes: Recipe[],
+    likes: Record<string, boolean>
+}
+
+export { type User, type Recipe};

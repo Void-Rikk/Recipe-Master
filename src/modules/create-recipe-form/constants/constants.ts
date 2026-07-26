@@ -4,6 +4,6 @@ export const initialFormState: CreateRecipeFormType = {
     title: "",
     description: "",
     image: null,
-    ingredients: [{ value: "", id: 1 }],
-    instructions: [{ value: "", id: 1 }]
+    ingredients: [{ description: "", id: 1 }],
+    instructions: [{ description: "", id: 1 }]
 }

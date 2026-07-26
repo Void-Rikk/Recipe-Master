@@ -1,38 +1,67 @@
 import Input from "../../../../shared/components/input/input.tsx";
-import Button from "../../../../shared/components/button/button.tsx";
+import { type Dispatch, type SetStateAction, useCallback, useState } from "react";
 import { Search } from "lucide-react";
-import { type SubmitEventHandler, useState } from "react";
+import { SearchSuggestions } from "../search-suggestions";
+import { useGetTrie } from "../../hooks";
 
 
-function SearchBar() {
-    const [searchQuery, setSearchQuery] = useState<string>("");
+interface SearchBarProps {
+    searchQuery: string;
+    setSearchQuery: Dispatch<SetStateAction<string>>;
+    isSearching: boolean
+}
 
-    const handleSearch: SubmitEventHandler = (e) => {
-        e.preventDefault();
-        if (searchQuery.length === 0) return;
-    }
+function SearchBar({ searchQuery, setSearchQuery, isSearching }: SearchBarProps) {
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const { trie } = useGetTrie();
+
+    const handleSelect = (word: string) => {
+        setSearchQuery(word);
+        setIsOpen(false);
+    };
+
+    const handleFocus = useCallback(() => setIsOpen(true), []);
+
+    const handleBlur = useCallback(() => setIsOpen(false), []);
 
     return (
         <form
-            className="flex items-center gap-6 w-[50%]
+            className="flex items-center gap-6 min-w-[35vw]
             max-md:w-[100%]"
-            onSubmit={ (e) => handleSearch(e) }
         >
-            <Input
-                type="text"
-                className="h-10 w-[60%] grow-1 rounded-2xl text-lg shadow-sm shadow-gray-600
-                focus:translate-y-[-1px] focus:shadow-md outline-none transition-all "
-                placeholder="Search for recipe"
-                value={ searchQuery }
-                onChange={ (e) => setSearchQuery(e.target.value) }
-            />
-            <Button
-                className="flex justify-center items-center p-2 min-w-8 min-h-8 rounded-full
-                hover:translate-y-[-1px] hover:bg-gray-900 hover:shadow-md hover:cursor-pointer
-                 shadow-sm shadow-gray-900 transition-all"
+            <div
+                className="relative
+                flex justify-between items-center pr-4
+                shadow-sm shadow-gray-400
+                bg-gray-900 w-full rounded-2xl
+                transition-all"
             >
-                <Search />
-            </Button>
+                <Input
+                    type="text"
+                    className="h-10 w-[90%] grow-1 rounded-2xl text-lg z-1
+                    outline-none"
+                    placeholder="Поиск по названию"
+                    onFocus={ handleFocus }
+                    onBlur={ handleBlur }
+                    value={ searchQuery }
+                    onChange={ (e) => setSearchQuery(e.target.value) }
+                />
+                <Search
+                    className={`z-1
+                    ${ isSearching
+                        ? "animate-pulse text-white"
+                        : "animate-none text-gray-400" 
+                    }`}
+                />
+                <SearchSuggestions
+                    suggestions={ trie ? trie.getStrings(searchQuery) : [] }
+                    isOpen={ isOpen }
+                    onSelect={ handleSelect }
+                    limit={ 5 }
+                />
+            </div>
         </form>
     );
 }

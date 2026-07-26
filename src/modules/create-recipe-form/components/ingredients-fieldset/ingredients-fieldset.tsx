@@ -14,7 +14,7 @@ function IngredientsFieldset({ form, setForm }: IngredientsFieldsProps) {
     const handleAddIngredientField = () => {
         setForm(prev => ({
             ...prev,
-            ingredients: [...prev.ingredients, { value: "", id: Date.now() }]
+            ingredients: [...prev.ingredients, { description: "", id: Date.now() }]
         }));
     }
 
@@ -23,7 +23,7 @@ function IngredientsFieldset({ form, setForm }: IngredientsFieldsProps) {
             ...prev,
             ingredients: prev.ingredients.map((inp) => {
                 if (id === inp.id) {
-                    return { value: e.target.value, id };
+                    return { description: e.target.value, id };
                 }
                 else {
                     return inp;
@@ -44,7 +44,7 @@ function IngredientsFieldset({ form, setForm }: IngredientsFieldsProps) {
             <div
                 className="flex justify-between items-center"
             >
-                <span className="text-2xl">Ingredients</span>
+                <span className="text-2xl">Ингредиенты</span>
                 <Button
                     type="button"
                     onClick={ handleAddIngredientField }
@@ -53,7 +53,7 @@ function IngredientsFieldset({ form, setForm }: IngredientsFieldsProps) {
                     hover:translate-y-[-1px] hover:shadow-md"
                 >
                     <Plus />
-                    <span className="text-lg">Add</span>
+                    <span className="text-lg">Добавить</span>
                 </Button>
             </div>
             <fieldset className="flex flex-col gap-2">
@@ -61,8 +61,8 @@ function IngredientsFieldset({ form, setForm }: IngredientsFieldsProps) {
                     <div key={ input.id } className="flex gap-4">
                         <Input
                             className="grow-1 shadow shadow-gray-600"
-                            placeholder={`Ingredient ${index + 1}`}
-                            value={ input.value }
+                            placeholder={`Ингредиент ${index + 1}`}
+                            value={ input.description }
                             onChange={(e) => handleChangeIngredientInput(e, input.id) }
                         />
                         <Button

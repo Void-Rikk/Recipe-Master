@@ -1,6 +1,6 @@
 import Button from "../../../../shared/components/button/button.tsx";
 import type { Dispatch, SetStateAction } from "react";
-import { switchFormState } from "../../utils/switch-form-state.ts";
+import { switchFormState } from "../../utils/utils.ts";
 
 
 interface FormSwitcherProps {
@@ -18,7 +18,7 @@ function FormSwitcher({ formState, setFormState }: FormSwitcherProps) {
 
                 onClick={ () => switchFormState(formState, setFormState, "login") }
             >
-                Login
+                Вход
             </Button>
 
             <Button
@@ -27,7 +27,7 @@ function FormSwitcher({ formState, setFormState }: FormSwitcherProps) {
 
                 onClick={ () => switchFormState(formState, setFormState, "register") }
             >
-                Register
+                Регистрация
             </Button>
         </div>
     );

@@ -1,20 +1,21 @@
 import { Link } from "react-router";
 import { CircleUserRound } from "lucide-react";
-import type { Author } from "../../../../shared/utils/types.ts";
 
 
 interface RecipeDescriptionProps {
-    recipeID: string,
-    recipeName: string,
-    author: Author,
+    recipeID: number;
+    recipeName: string;
+    authorId: number;
+    authorFirstName: string;
+    authorLastName: string;
 }
 
-function RecipeDescription({ recipeID, recipeName, author }: RecipeDescriptionProps) {
+function RecipeDescription({ recipeID, recipeName, authorId, authorFirstName, authorLastName }: RecipeDescriptionProps) {
 
     return (
         <>
             <header
-                className="text-lg hover:underline"
+                className="text-xl hover:underline"
             >
                 <Link
                     to={`/recipe/${recipeID}`}
@@ -24,11 +25,11 @@ function RecipeDescription({ recipeID, recipeName, author }: RecipeDescriptionPr
             </header>
             <p>
                 <Link
-                    to={`/user/${author.id}`}
-                    className="flex gap-2 hover:cursor-pointer hover:underline"
+                    to={`/user/${authorId}`}
+                    className="flex items-center gap-2 hover:cursor-pointer hover:underline"
                 >
-                    <CircleUserRound />
-                    { author.firstname + " " + author.lastname }
+                    <CircleUserRound className="w-8 h-8" />
+                    <span className="text-lg">{ authorFirstName + " " + authorLastName }</span>
                 </Link>
             </p>
         </>
